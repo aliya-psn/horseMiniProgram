@@ -1,0 +1,344 @@
+/* ========== 首页 - 纯CSS视觉重构 ==========
+ * 100% CSS 实现：渐变、祥云、元宝、马蹄印、呼吸动画等，无图片资源。
+ * 尺寸按 1px≈2rpx 换算（设计宽 375），适配微信小程序。
+ */
+
+.page-index {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------- 1. 背景：线性渐变 + 半透明金色祥云纹理 ---------- */
+.page-index-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  /* 线性渐变：顶部 #FFF5E6（浅米黄）→ 底部 #FFE8CC（暖杏色） */
+  background: linear-gradient(180deg, #FFF5E6 0%, #FFE8CC 100%);
+  z-index: 0;
+}
+
+/* 祥云纹理：radial-gradient 椭圆，半透明金色，柔和新年氛围 */
+.cloud {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 70% 40% at center,
+    rgba(212, 175, 55, 0.12) 0%,
+    rgba(212, 175, 55, 0.05) 40%,
+    transparent 70%
+  );
+  z-index: 0;
+}
+
+.cloud-1 { width: 360rpx; height: 180rpx; top: 8%; left: -5%; }
+.cloud-2 { width: 280rpx; height: 140rpx; top: 42%; right: -8%; }
+.cloud-3 { width: 240rpx; height: 120rpx; bottom: 25%; left: 10%; }
+
+/* ---------- 2. 主内容区：垂直居中 + 留白，呼吸感 ---------- */
+.page-index-main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 600rpx;
+  padding: 60rpx 48rpx 80rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------- 3. 顶部视觉区：马年主题强化 ---------- */
+.top-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+
+/* 金色“马”字艺术字：skew/rotate 倾斜感，#D4AF37，轻微阴影（纯 CSS） */
+.horse-word {
+  font-size: 96rpx;
+  font-weight: 700;
+  color: #D4AF37;
+  letter-spacing: 8rpx;
+  display: block;
+  transform: skewX(-6deg) rotate(-2deg);
+  text-shadow:
+    0 4rpx 8rpx rgba(212, 175, 55, 0.4),
+    0 2rpx 4rpx rgba(0, 0, 0, 0.08);
+}
+
+/* 两对称元宝 + 细金线：元宝为圆角矩形+小方块（CSS 绘制） */
+.ingots-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+/* 元宝：圆角矩形（主体）+ 小方块（cap）CSS 绘制 */
+.ingot {
+  width: 48rpx;
+  height: 32rpx;
+  border-radius: 10rpx 10rpx 12rpx 12rpx;
+  background: linear-gradient(180deg, #D4AF37 0%, #b8942a 100%);
+  box-shadow: 0 4rpx 12rpx rgba(212, 175, 55, 0.35), inset 0 2rpx 4rpx rgba(255, 255, 255, 0.25);
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.ingot-cap {
+  position: absolute;
+  top: -8rpx;
+  width: 20rpx;
+  height: 10rpx;
+  border-radius: 4rpx;
+  background: linear-gradient(180deg, #D4AF37 0%, #b8942a 100%);
+  box-shadow: inset 0 1rpx 2rpx rgba(255, 255, 255, 0.4);
+}
+
+.ingot-line {
+  width: 32rpx;
+  height: 2rpx;
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+  flex-shrink: 0;
+}
+
+.ingots-below-btn {
+  margin-top: 24rpx;
+}
+
+/* 元宝/金线下方、顶部三金点 */
+.dots-three {
+  display: flex;
+  justify-content: center;
+  gap: 16rpx;
+  margin-top: 16rpx;
+}
+
+.dot-gold {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #D4AF37, #b8942a);
+  box-shadow: 0 2rpx 6rpx rgba(212, 175, 55, 0.4);
+}
+
+/* ---------- 4. 标题与引导区 ---------- */
+.header {
+  text-align: center;
+  margin-bottom: 32rpx;
+}
+
+/* 主标题：28px 加粗，红→金线性渐变 + 1px 金描边 + 文字阴影（兼容：渐变用 background-clip，不支持的机型用 color 兜底） */
+.title-main {
+  display: block;
+  font-size: 56rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+  color: #C8102E;
+  -webkit-text-stroke: 2rpx #D4AF37;
+  text-shadow:
+    0 2rpx 4rpx rgba(0, 0, 0, 0.1),
+    0 0 20rpx rgba(212, 175, 55, 0.25);
+  margin-bottom: 20rpx;
+}
+
+/* 支持 background-clip 时显示红金渐变字 */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .title-main {
+    background: linear-gradient(135deg, #C8102E 0%, #D4AF37 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* 副标题：18px 常规，金色 #D4AF37，与主标题间距 10px */
+.title-sub {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 400;
+  color: #D4AF37;
+  letter-spacing: 2rpx;
+}
+
+/* ---------- 5. 说明框：白底、圆角12px、1px 浅金边框、轻微阴影 ---------- */
+.guide-box {
+  width: 100%;
+  padding: 32rpx 36rpx;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  border: 2rpx solid #E8D5B7;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.06);
+  margin-bottom: 60rpx;
+}
+
+.guide-text {
+  display: block;
+  font-size: 32rpx;
+  color: #333;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* 下方三个金色马蹄印：CSS 圆角三角形（border 法做三角） */
+.hoof-row {
+  display: flex;
+  justify-content: center;
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+
+.hoof {
+  width: 0;
+  height: 0;
+  border-left: 14rpx solid transparent;
+  border-right: 14rpx solid transparent;
+  border-bottom: 22rpx solid #D4AF37;
+  box-shadow: 0 2rpx 8rpx rgba(212, 175, 55, 0.35);
+}
+
+/* ---------- 6. 按钮区：红金渐变、圆角24px、高56px、呼吸动画 ---------- */
+.btn-zone {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50rpx;
+}
+
+.btn-main {
+  width: 100% !important;
+  height: 112rpx;
+  padding: 0 20rpx;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #C8102E 0%, #D4AF37 100%);
+  border-radius: 48rpx;
+  border: none;
+  box-shadow: 0 8rpx 28rpx rgba(200, 16, 46, 0.35);
+  transition: box-shadow 0.2s ease;
+}
+
+.btn-main::after {
+  border: none;
+}
+
+/* 呼吸动画：scale 0.98–1.02，2s 无限循环 */
+.btn-main {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(0.98); }
+  50% { transform: scale(1.02); }
+}
+
+/* 点击：scale 0.95，阴影加深 */
+.btn-main:active {
+  animation: none;
+  transform: scale(0.95);
+  box-shadow: 0 4rpx 16rpx rgba(200, 16, 46, 0.5);
+}
+
+/* ---------- 6.5 我的测试记录：白底、金边、圆角12px、轻微阴影；点击轻微缩放 ---------- */
+.record-card {
+  width: 100%;
+  padding: 28rpx 32rpx;
+  margin-bottom: 40rpx;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  border: 2rpx solid #E8D5B7;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.record-card:active {
+  transform: scale(0.98);
+}
+
+.record-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #D4AF37;
+  margin-bottom: 12rpx;
+}
+
+.record-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.record-text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.record-arrow {
+  font-size: 36rpx;
+  color: #D4AF37;
+  font-weight: 300;
+}
+
+/* ---------- 7. 底部说明：14px #999 居中，与主按钮 25px 间距 ---------- */
+.local-disclaimer {
+  width: 100%;
+  padding: 0 24rpx;
+  margin-bottom: 40rpx;
+}
+
+.disclaimer-text {
+  display: block;
+  font-size: 28rpx;
+  color: #999;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ---------- 8. 底部装饰：五个金色小圆点水平排列 ---------- */
+.dots-five {
+  display: flex;
+  justify-content: center;
+  gap: 28rpx;
+}
+
+.dots-five .dot-gold {
+  width: 14rpx;
+  height: 14rpx;
+}
+
+/* ---------- Banner 广告占位（已隐藏） ---------- */
+.ad-banner-placeholder.ad-hidden {
+  display: none !important;
+}
+
+.ad-banner-placeholder {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 160rpx;
+  background: #f8f6f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.ad-label { font-size: 24rpx; color: #999; }

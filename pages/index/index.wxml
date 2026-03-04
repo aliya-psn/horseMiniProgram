@@ -1,0 +1,92 @@
+<!-- ========== 首页 - 纯CSS视觉重构 ==========
+     背景：线性渐变 #FFF5E6→#FFE8CC + 半透明金色祥云纹理；
+     顶部：金色“马”字艺术字 + 两对称元宝+细金线 + 三金点；
+     标题区：红金渐变+金描边；说明框白底金边+马蹄印；
+     按钮：红金渐变+呼吸动画；底部说明+五金点。100% CSS，无图片。 -->
+<view class="page-index">
+  <!-- 背景层：线性渐变 + 半透明金色祥云纹理（radial-gradient） -->
+  <view class="page-index-bg">
+    <view class="cloud cloud-1"></view>
+    <view class="cloud cloud-2"></view>
+    <view class="cloud cloud-3"></view>
+  </view>
+
+  <!-- 主内容区：垂直居中+留白 -->
+  <view class="page-index-main">
+    <!-- 顶部视觉区：马年主题强化 -->
+    <view class="top-zone">
+      <!-- 金色“马”字艺术字：transform 倾斜感，颜色 #D4AF37，轻微阴影 -->
+      <text class="horse-word">马</text>
+      <!-- 马字下方：两对称元宝 + 中间细金线，形成“马上有财” -->
+      <view class="ingots-row">
+        <view class="ingot"><view class="ingot-cap"></view></view>
+        <view class="ingot-line"></view>
+        <view class="ingot"><view class="ingot-cap"></view></view>
+      </view>
+      <!-- 元宝下方：三个金色小圆点（CSS 绘制） -->
+      <view class="dots-three">
+        <view class="dot-gold"></view>
+        <view class="dot-gold"></view>
+        <view class="dot-gold"></view>
+      </view>
+    </view>
+
+    <!-- 标题与引导区 -->
+    <view class="header">
+      <!-- 主标题：红到金线性渐变 + 1px 金描边 + 文字阴影，与顶部元宝间距 20px -->
+      <text class="title-main">2026马年运势小测试</text>
+      <!-- 副标题：18px 金色 #D4AF37，与主标题间距 10px -->
+      <text class="title-sub">新一年，图个好彩头～</text>
+    </view>
+
+    <!-- 说明框：白底、圆角12px、浅金边框、轻微阴影；下方三个金色马蹄印（圆角三角形） -->
+    <view class="guide-box">
+      <text class="guide-text">凭第一感觉选答案，测出你的2026专属运势</text>
+      <view class="hoof-row">
+        <view class="hoof"></view>
+        <view class="hoof"></view>
+        <view class="hoof"></view>
+      </view>
+    </view>
+
+    <!-- 按钮区：红金渐变、圆角24px、高56px；呼吸动画 + 点击 scale 0.95；与说明框间距 30px -->
+    <view class="btn-zone">
+      <button class="btn-main" bindtap="onStartTest">马到成功·开始测试</button>
+      <!-- 按钮下方：三个金色元宝（与顶部一致） -->
+      <!-- <view class="ingots-row ingots-below-btn">
+        <view class="ingot"><view class="ingot-cap"></view></view>
+        <view class="ingot-line"></view>
+        <view class="ingot"><view class="ingot-cap"></view></view>
+      </view> -->
+    </view>
+
+    <!-- 我的测试记录：仅当存在记录时显示；白底金边+时间+运势类型+箭头，点击跳转结果页 -->
+    <view class="record-card" wx:if="{{hasRecord}}" bindtap="onRecordTap">
+      <text class="record-title">我的测试记录</text>
+      <view class="record-row">
+        <text class="record-text">{{recordTime}} 测试 | {{recordTitle}}</text>
+        <text class="record-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 底部说明：14px #999 居中，与主按钮间距 25px -->
+    <view class="local-disclaimer">
+      <text class="disclaimer-text">本测试所有数据均在本地完成</text>
+      <text class="disclaimer-text">不会上传任何个人信息，放心体验。</text>
+    </view>
+
+    <!-- 底部装饰：五个金色小圆点水平排列，视觉收尾 -->
+    <view class="dots-five">
+      <view class="dot-gold"></view>
+      <view class="dot-gold"></view>
+      <view class="dot-gold"></view>
+      <view class="dot-gold"></view>
+      <view class="dot-gold"></view>
+    </view>
+  </view>
+
+  <!-- Banner 广告占位（已隐藏） -->
+  <view class="ad-banner-placeholder ad-hidden">
+    <text class="ad-label">[Banner 广告位]</text>
+  </view>
+</view>

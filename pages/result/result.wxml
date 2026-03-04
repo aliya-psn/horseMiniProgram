@@ -1,0 +1,65 @@
+<!-- ========== 结果页 - 全页面视觉大升级 ==========
+     红金渐变+祥云背景、马到成功印章、马纹金线边框、维度金色小图标、卡片弹出动效、按钮统一 -->
+<view class="page-result">
+  <!-- 背景：与首页/答题页一致 -->
+  <view class="page-result-bg" style="background: {{theme.bg}};">
+    <view class="cloud-texture rc-1"></view>
+    <view class="cloud-texture rc-2"></view>
+  </view>
+
+  <!-- 结果卡片：顶部“马到成功”印章、马纹金线边框、四周金元宝点缀、加载时从下往上弹出 -->
+  <view class="result-card">
+    <!-- 马到成功印章 -->
+    <view class="seal-wrap">
+      <text class="seal-text">马到成功</text>
+    </view>
+    <text class="result-label text-gold" style="color: {{theme.secondary}};">你的2026运势</text>
+    <text class="result-title result-title-gradient" style="color: {{theme.primary}};">{{resultTitle}}</text>
+    <!-- <text class="result-score100">本次运势评分：{{score100}}分（满分100）</text> -->
+    <text class="result-keywords" style="color: {{theme.textSecondary}};">{{resultKeywords}}</text>
+    <!-- <text class="result-score">得分：{{score}} 分</text> -->
+    <!-- 卡片四角金元宝/铜钱点缀（CSS 小圆点模拟） -->
+    <view class="card-corner card-tl"></view>
+    <view class="card-corner card-tr"></view>
+    <view class="card-corner card-bl"></view>
+    <view class="card-corner card-br"></view>
+  </view>
+
+  <!-- 四维度详细解读：每项前加金色小图标（事业=元宝 人际=人 健康=心 建议=灯） -->
+  <view class="result-details" wx:if="{{resultSections.length > 0}}">
+    <view class="detail-section" wx:for="{{resultSections}}" wx:key="label">
+      <text class="detail-icon-symbol" style="color: {{theme.secondary}};">{{item.iconChar}}</text>
+      <view class="detail-body">
+        <text class="detail-label" style="color: {{theme.textPrimary}};">{{item.label}}</text>
+        <text class="detail-content" style="color: {{theme.textSecondary}};">{{item.content}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 合规提示：小号灰色，不突兀 -->
+  <view class="disclaimer">
+    <text class="disclaimer-text">本测试仅供娱乐参考，不作任何现实依据，美好生活靠自己努力！</text>
+  </view>
+
+  <view class="ad-interstitial-placeholder ad-hidden">
+    <text class="ad-label">[插屏广告位]</text>
+    <text class="ad-hint">替换方式：在 result.js 中调用 wx.createInterstitialAd({ adUnitId: '...' })</text>
+  </view>
+
+  <!-- 按钮区：仅保留「重新测试」；分享/保存运势图已注释，恢复时取消下方注释即可 -->
+  <view class="actions">
+    <!-- 分享按钮-暂注释：恢复时取消下一行注释 -->
+    <!-- <button class="btn-primary btn-glow btn-share" open-type="share">马到成功 · 分享给好友</button> -->
+    <!-- 保存图片按钮-暂注释：恢复时取消下一行注释 -->
+    <!-- <button class="btn-primary btn-glow btn-save" bindtap="onSaveImage">保存运势图</button> -->
+    <button class="btn-retest" bindtap="onRetest">重新测试</button>
+  </view>
+
+  <!-- 用于生成运势图的画布（屏外绘制，比例 3:4，导出后保存相册；二维码区域为占位，后续可替换为真实小程序码） -->
+  <canvas
+    canvas-id="fortuneCanvas"
+    style="position: fixed; left: -9999px; top: 0;"
+    width="600"
+    height="800"
+  ></canvas>
+</view>

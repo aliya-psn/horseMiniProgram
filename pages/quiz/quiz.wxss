@@ -1,0 +1,117 @@
+/* ========== 答题页 - 全页面视觉大升级 ==========
+ * 背景与首页一致：红金渐变+祥云；题号栏浅金渐变+马蹄印；选项金边，选中红边+scale(1.05)；点击高亮+滑动动效
+ */
+.page-quiz {
+  min-height: 100vh;
+  padding: 40rpx 40rpx 60rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ---------- 背景：红金渐变 + 祥云纹理（与首页统一） ---------- */
+.page-quiz-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(165deg, #FFF9F0 0%, #FFF0E0 30%, #FFE8D0 60%, #FFF5E6 85%, #FFF9F0 100%);
+  z-index: 0;
+}
+
+.page-quiz .cloud-texture {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(ellipse 80% 50% at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.page-quiz .qc-1 { width: 360rpx; height: 180rpx; top: 5%; right: -8%; }
+.page-quiz .qc-2 { width: 280rpx; height: 140rpx; bottom: 15%; left: -5%; }
+
+/* 页面进入：轻微滑动动画 */
+.page-quiz {
+  animation: quiz-slide-in 0.35s ease-out;
+}
+
+@keyframes quiz-slide-in {
+  from { opacity: 0; transform: translateX(24rpx); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ---------- 题号栏：浅金渐变条 + 马蹄印 + 金色字 ---------- */
+.progress-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 20rpx 28rpx;
+  margin-bottom: 32rpx;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.08) 100%);
+  border-radius: 20rpx;
+  border: 1rpx solid rgba(212, 175, 55, 0.25);
+}
+
+.hoof-print-small {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, #D4AF37 0%, rgba(212, 175, 55, 0.7) 100%);
+  flex-shrink: 0;
+}
+
+.progress-text {
+  font-size: 30rpx;
+  color: #D4AF37;
+  font-weight: 700;
+}
+
+/* ---------- 题目卡片 ---------- */
+.question-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 28rpx;
+  padding: 44rpx 40rpx;
+  box-shadow: 0 8rpx 32rpx rgba(200, 16, 46, 0.06), 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+  border: 2rpx solid rgba(212, 175, 55, 0.2);
+}
+
+.question-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 44rpx;
+}
+
+/* ---------- 选项卡片：米白底、金细边框、阴影；选中/点击时红边+放大 1.05 ---------- */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.option-item {
+  background: #FFF9F0;
+  border: 2rpx solid rgba(212, 175, 55, 0.35);
+  border-radius: 24rpx;
+  padding: 34rpx 40rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.option-item:active {
+  transform: scale(1.05);
+  background: #FFF5E6;
+  border-color: #C8102E;
+  box-shadow: 0 8rpx 28rpx rgba(200, 16, 46, 0.15);
+}
+
+.option-text {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.55;
+}

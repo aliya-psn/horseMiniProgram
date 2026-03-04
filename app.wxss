@@ -1,0 +1,83 @@
+/* ========== 全局样式 - UI升级版 ==========
+ * 主色：红 #C8102E、金 #D4AF37、背景米白 #FFF9F0
+ * 字体：标题可后续接入站酷快乐体/阿里巴巴普惠体（wx.loadFontFace），当前用系统字体+字重区分
+ */
+page {
+  background-color: #FFF9F0;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  font-size: 28rpx;
+  color: #333;
+  box-sizing: border-box;
+}
+
+/* 标题用更大字重、略大字号，营造设计感（后续可在此处指定自定义字体） */
+.page-title-font {
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+
+/* 小程序 button 默认样式重置，保证文字居中 */
+button {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+button::after {
+  border: none;
+}
+
+/* 主按钮：红色渐变，圆角16px(32rpx)，阴影+点击缩放+闪光动效 */
+.btn-primary {
+  background: linear-gradient(135deg, #C8102E 0%, #a00d24 100%);
+  color: #fff;
+  border-radius: 32rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  box-shadow: 0 8rpx 24rpx rgba(200, 16, 46, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:active {
+  transform: scale(0.96);
+  box-shadow: 0 4rpx 16rpx rgba(200, 16, 46, 0.4), 0 0 32rpx rgba(212, 175, 55, 0.3);
+}
+
+/* 次按钮：金色渐变，圆角16px，阴影+点击动效 */
+.btn-secondary {
+  background: linear-gradient(135deg, #D4AF37 0%, #b8942a 100%);
+  color: #fff;
+  border-radius: 32rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  box-shadow: 0 8rpx 24rpx rgba(212, 175, 55, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-secondary:active {
+  transform: scale(0.96);
+  box-shadow: 0 4rpx 16rpx rgba(212, 175, 55, 0.4), 0 0 32rpx rgba(212, 175, 55, 0.25);
+}
+
+/* 金色强调文字 */
+.text-gold {
+  color: #D4AF37;
+}
+
+/* 红色强调文字 */
+.text-red {
+  color: #C8102E;
+}
+
+/* 红金渐变艺术字（标题用）：部分机型支持 background-clip:text，不支持的用 color+text-shadow */
+.title-gradient-text {
+  color: #C8102E;
+  text-shadow: 0 2rpx 8rpx rgba(0,0,0,0.08), 0 0 20rpx rgba(212, 175, 55, 0.35);
+}

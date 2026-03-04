@@ -1,0 +1,27 @@
+<!-- ========== 答题页（question.wxml） - 与 quiz.wxml 内容一致 ==========
+     若您的项目使用 question 作为答题页文件名，可本文件替换您的 question.wxml；
+     本项目中答题页为 quiz，实际使用 pages/quiz/quiz.wxml -->
+<view class="page-quiz" wx:if="{{currentQuestion}}">
+  <view class="page-quiz-bg">
+    <view class="cloud-texture qc-1"></view>
+    <view class="cloud-texture qc-2"></view>
+  </view>
+  <view class="progress-bar">
+    <view class="hoof-print-small"></view>
+    <text class="progress-text">第{{currentIndex + 1}}题 / {{total}}题</text>
+  </view>
+  <view class="question-card">
+    <text class="question-title">{{currentQuestion.title}}</text>
+    <view class="options">
+      <view
+        class="option-item"
+        wx:for="{{currentQuestion.options}}"
+        wx:key="id"
+        data-score="{{item.score}}"
+        bindtap="onSelectOption"
+      >
+        <text class="option-text">{{item.text}}</text>
+      </view>
+    </view>
+  </view>
+</view>

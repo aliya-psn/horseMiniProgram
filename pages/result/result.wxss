@@ -1,0 +1,282 @@
+/* ========== 结果页 - 全页面视觉大升级 ==========
+ * 背景红金+祥云；结果卡片马到成功印章、马纹金线边框、弹出动画；维度前金色图标；按钮统一
+ */
+.page-result {
+  min-height: 100vh;
+  padding: 40rpx 40rpx 80rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ---------- 背景：红金渐变 + 祥云 ---------- */
+.page-result-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(165deg, #FFF9F0 0%, #FFF0E0 25%, #FFE8D0 50%, #FFF5E6 75%, #FFF9F0 100%);
+  z-index: 0;
+}
+
+.page-result .cloud-texture {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(ellipse 80% 50% at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.page-result .rc-1 { width: 380rpx; height: 190rpx; top: 8%; left: -10%; }
+.page-result .rc-2 { width: 300rpx; height: 150rpx; bottom: 20%; right: -8%; }
+
+/* ---------- 结果卡片：马纹金线边框、从下往上弹出动效 ---------- */
+.result-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 28rpx;
+  padding: 48rpx 40rpx 40rpx;
+  margin-bottom: 28rpx;
+  border: 3rpx solid #D4AF37;
+  box-shadow: 0 12rpx 40rpx rgba(200, 16, 46, 0.08), 0 0 0 1rpx rgba(212, 175, 55, 0.2) inset;
+  text-align: center;
+  animation: result-pop-up 0.45s ease-out;
+}
+
+@keyframes result-pop-up {
+  from { opacity: 0; transform: translateY(60rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 马到成功印章（顶部） */
+.seal-wrap {
+  margin-bottom: 20rpx;
+}
+
+.seal-text {
+  display: inline-block;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #C8102E;
+  padding: 8rpx 24rpx;
+  border: 2rpx solid #D4AF37;
+  border-radius: 8rpx;
+  background: rgba(212, 175, 55, 0.12);
+}
+
+.result-label {
+  display: block;
+  font-size: 26rpx;
+  margin-bottom: 10rpx;
+  color: #D4AF37;
+  font-weight: 600;
+}
+
+/* 结果标题：红金渐变艺术字 + 描边/阴影 */
+.result-title-gradient {
+  display: block;
+  font-size: 42rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+  color: #C8102E;
+  text-shadow: 0 2rpx 8rpx rgba(0,0,0,0.08), 0 0 20rpx rgba(212, 175, 55, 0.3);
+  margin-bottom: 12rpx;
+}
+
+/* 本次运势评分（100分制）：金色 #D4AF37，16px 加粗，与结果标题形成层次 */
+.result-score100 {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #D4AF37;
+  margin-bottom: 16rpx;
+}
+
+.result-keywords {
+  display: block;
+  font-size: 28rpx;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 16rpx;
+}
+
+.result-score {
+  display: block;
+  font-size: 26rpx;
+  color: #999;
+}
+
+/* 卡片四角金元宝/铜钱点缀（小圆点） */
+.card-corner {
+  position: absolute;
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #D4AF37, #b8942a);
+  z-index: 2;
+}
+
+.card-tl { top: 16rpx; left: 16rpx; }
+.card-tr { top: 16rpx; right: 16rpx; }
+.card-bl { bottom: 16rpx; left: 16rpx; }
+.card-br { bottom: 16rpx; right: 16rpx; }
+
+/* ---------- 四维度：每项前金色小图标（career=元宝 relation=人 health=心 suggestion=灯） ---------- */
+.result-details {
+  margin-bottom: 28rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.detail-section {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 20rpx;
+  padding: 26rpx 32rpx 26rpx 28rpx;
+  margin-bottom: 18rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.04);
+  border-left: 4rpx solid #D4AF37;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 20rpx;
+}
+
+.detail-section:last-child { margin-bottom: 0; }
+
+/* 维度前金色小图标（事业◆ 人际● 健康♥ 建议★） */
+.detail-icon-symbol {
+  flex-shrink: 0;
+  width: 44rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #D4AF37;
+  line-height: 1.4;
+}
+
+.detail-body { flex: 1; min-width: 0; }
+
+.detail-label {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #C8102E;
+  margin-bottom: 10rpx;
+}
+
+.detail-content {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.65;
+}
+
+/* ---------- 合规提示：小号灰色 ---------- */
+.disclaimer {
+  padding: 20rpx 24rpx;
+  margin-bottom: 24rpx;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 16rpx;
+  border: 1rpx solid rgba(212, 175, 55, 0.15);
+  position: relative;
+  z-index: 1;
+}
+
+.disclaimer-text {
+  font-size: 22rpx;
+  color: #888;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* 插屏广告占位（已隐藏：.ad-hidden；需要时去掉该类） */
+.ad-interstitial-placeholder.ad-hidden {
+  display: none !important;
+}
+
+.ad-interstitial-placeholder {
+  padding: 20rpx;
+  margin-bottom: 32rpx;
+  background: #f8f6f2;
+  border-radius: 16rpx;
+  border: 1rpx dashed rgba(212, 175, 55, 0.25);
+  position: relative;
+  z-index: 1;
+}
+
+.ad-interstitial-placeholder .ad-label { display: block; font-size: 24rpx; color: #999; margin-bottom: 6rpx; }
+.ad-interstitial-placeholder .ad-hint { font-size: 20rpx; color: #bbb; line-height: 1.35; }
+
+/* ---------- 按钮区：仅保留「重新测试」，红金渐变+发光+点击缩放/闪光，与结果卡片合理间距 ---------- */
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40rpx;
+  position: relative;
+  z-index: 1;
+}
+
+/* 重新测试按钮：与红金马年主按钮完全一致（红金渐变+发光+点击动效） */
+.btn-retest {
+  width: 100%;
+  max-width: 480rpx;
+  height: 92rpx;
+  line-height: 92rpx;
+  background: linear-gradient(135deg, #C8102E 0%, #D4AF37 50%, #C8102E 100%);
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 28rpx rgba(200, 16, 46, 0.35), 0 0 40rpx rgba(212, 175, 55, 0.2);
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+}
+
+.btn-retest:active {
+  transform: scale(0.96);
+  box-shadow: 0 4rpx 16rpx rgba(200, 16, 46, 0.5), 0 0 56rpx rgba(212, 175, 55, 0.4);
+}
+
+/* 分享按钮-暂注释：恢复时在 result.wxml 中取消对应 button 的注释即可，样式已保留 */
+.btn-share {
+  width: 100%;
+  height: 92rpx;
+  line-height: 92rpx;
+  background: linear-gradient(135deg, #C8102E 0%, #D4AF37 50%, #C8102E 100%);
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 28rpx rgba(200, 16, 46, 0.35), 0 0 40rpx rgba(212, 175, 55, 0.2);
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+}
+.btn-share:active { transform: scale(0.96); box-shadow: 0 4rpx 16rpx rgba(200, 16, 46, 0.5), 0 0 56rpx rgba(212, 175, 55, 0.4); }
+
+/* 保存图片按钮-暂注释：恢复时在 result.wxml 中取消对应 button 的注释即可，样式已保留 */
+.btn-save {
+  width: 100%;
+  height: 92rpx;
+  line-height: 92rpx;
+  background: linear-gradient(135deg, #C8102E 0%, #D4AF37 50%, #C8102E 100%);
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 28rpx rgba(200, 16, 46, 0.35), 0 0 40rpx rgba(212, 175, 55, 0.2);
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+}
+.btn-save:active { transform: scale(0.96); box-shadow: 0 4rpx 16rpx rgba(200, 16, 46, 0.5), 0 0 56rpx rgba(212, 175, 55, 0.4); }
