@@ -1,7 +1,7 @@
 const RESULT_MAP = [
   {
     min: 10,
-    max: 16,
+    max: 18,
     title: '安然清福型',
     keywords: '2026关键词：平安、恬淡、心安',
     sections: [
@@ -12,8 +12,8 @@ const RESULT_MAP = [
     ]
   },
   {
-    min: 17,
-    max: 23,
+    min: 19,
+    max: 24,
     title: '温润进阶型',
     keywords: '2026关键词：踏实、成长、小成',
     sections: [
@@ -24,7 +24,7 @@ const RESULT_MAP = [
     ]
   },
   {
-    min: 24,
+    min: 25,
     max: 30,
     title: '吉运盈门型',
     keywords: '2026关键词：顺心、旺运、小富',
@@ -63,7 +63,7 @@ const RESULT_MAP = [
     min: 38,
     max: 40,
     title: '巅峰旺运型',
-    content: '你是万里挑一的天选旺运体质！',
+    keywords: '2026关键词：天选、旺运、大成',
     sections: [
       { label: '事业/财运', icon: 'career', iconChar: '◆', content: '势不可挡，一顺百顺。事业名利双收，财运亨通，所求皆得。' },
       { label: '人际/贵人', icon: 'relation', iconChar: '●', content: '众星捧月，贵人如云。逢凶化吉，遇难成祥，走到哪里都是福运中心。' },
@@ -125,7 +125,8 @@ const THEME_MAP = {
 
 /** 分值转化公式：原始分 10-40 转为 100 分制，保留整数。位置：本函数，在 setData 前调用。 */
 function toScore100(rawScore) {
-  return Math.round((rawScore / 40) * 100);
+  const s = Math.max(10, Math.min(40, rawScore));
+  return Math.round(((s - 10) / 30) * 100);
 }
 
 function getThemeByTitle(title) {
@@ -140,6 +141,7 @@ function getResult(score) {
   }
   return RESULT_MAP[0];
 }
+
 
 /**
  * 格式化日期为 2026-XX-XX
@@ -165,7 +167,7 @@ Page({
 
   onLoad(options) {
     const fromRecord = options.fromRecord === '1';
-    let score = wx.getStorageSync('fortune_score') || 0;
+    let score = Number(wx.getStorageSync('fortune_score') || 10);
     let result;
 
     if (fromRecord) {

@@ -44,5 +44,27 @@ Page({
     wx.navigateTo({
       url: '/pages/result/result?fromRecord=1'
     });
+  },
+
+  /**
+   * 分享给好友：用户点击右上角菜单「转发」或页面内分享按钮时触发
+   */
+  onShareAppMessage() {
+    return {
+      title: '2026马年运势小测试 - 测测你的新年运势',
+      path: '/pages/index/index',
+      imageUrl: '' // 不填则使用小程序默认截图；可放自定义分享图路径
+    };
+  },
+
+  /**
+   * 分享到朋友圈（基础库 2.11.3+）
+   */
+  onShareTimeline() {
+    return {
+      title: '2026马年运势小测试 - 测测你的新年运势',
+      query: '',
+      imageUrl: ''
+    };
   }
 });

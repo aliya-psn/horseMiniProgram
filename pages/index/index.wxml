@@ -84,6 +84,10 @@
       <view class="dot-gold"></view>
     </view>
   </view>
+  <!-- 底部分享入口：低调文字链接样式 -->
+    <button class="btn-share" open-type="share">
+      <text class="btn-share-text">分享给好友</text>
+    </button>
 
   <!-- Banner 广告占位（已隐藏） -->
   <view class="ad-banner-placeholder ad-hidden">

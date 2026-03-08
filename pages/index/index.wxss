@@ -4,7 +4,7 @@
  */
 
 .page-index {
-  min-height: 100vh;
+  height: 100vh;
   position: relative;
   overflow-x: hidden;
   display: flex;
@@ -51,6 +51,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 90vh;
 }
 
 /* ---------- 3. 顶部视觉区：马年主题强化 ---------- */
@@ -294,6 +295,37 @@
   font-size: 36rpx;
   color: #D4AF37;
   font-weight: 300;
+}
+
+/* ---------- 6.6 分享按钮：底部金边白底圆角，与说明框/记录卡风格一致 ---------- */
+.btn-share {
+  width: 100%;
+  height: 88rpx;
+  padding: 0 20rpx;
+  margin: 0 0 40rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  border: 2rpx solid #E8D5B7;
+  border-radius: 44rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+  display: absolute;
+  bottom: 50rpx;
+}
+
+.btn-share::after {
+  border: none;
+}
+
+.btn-share-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #D4AF37;
+}
+
+.btn-share:active {
+  opacity: 0.9;
 }
 
 /* ---------- 7. 底部说明：14px #999 居中，与主按钮 25px 间距 ---------- */
