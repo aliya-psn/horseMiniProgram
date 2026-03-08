@@ -171,23 +171,24 @@
   letter-spacing: 2rpx;
 }
 
-/* ---------- 5. 说明框：白底、圆角12px、1px 浅金边框、轻微阴影 ---------- */
+/* ---------- 5. 说明框：提示卡片风格（左金条+暖色底），避免被误认为输入框 ---------- */
 .guide-box {
   width: 100%;
-  padding: 32rpx 36rpx;
-  background: #FFFFFF;
-  border-radius: 24rpx;
-  border: 2rpx solid #E8D5B7;
-  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.06);
-  margin-bottom: 60rpx;
+  padding: 28rpx 32rpx 28rpx 36rpx;
+  background: linear-gradient(135deg, #FFFBF7 0%, #FFF8F0 100%);
+  border-radius: 20rpx;
+  border: none;
+  border-left: 8rpx solid #D4AF37;
+  box-shadow: 0 4rpx 16rpx rgba(212, 175, 55, 0.08);
+  margin-bottom: 48rpx;
 }
 
 .guide-text {
   display: block;
   font-size: 32rpx;
-  color: #333;
+  color: #5c4a32;
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* 下方三个金色马蹄印：CSS 圆角三角形（border 法做三角） */
@@ -331,6 +332,7 @@
 /* ---------- 7. 底部说明：14px #999 居中，与主按钮 25px 间距 ---------- */
 .local-disclaimer {
   width: 100%;
+  margin-top:30rpx;
   padding: 0 24rpx;
   margin-bottom: 40rpx;
 }

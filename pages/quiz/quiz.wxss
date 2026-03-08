@@ -128,7 +128,7 @@
 .quiz-actions {
   position: relative;
   z-index: 1;
-  margin-top: 48rpx;
+  margin-top: 52rpx;
   padding-bottom: 40rpx;
 }
 
