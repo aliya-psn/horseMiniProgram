@@ -15,9 +15,12 @@
     </view>
     <text class="result-label text-gold" style="color: {{theme.secondary}};">你的2026运势</text>
     <text class="result-title result-title-gradient" style="color: {{theme.primary}};">{{resultTitle}}</text>
-    <!-- <text class="result-score100">本次运势评分：{{score100}}分（满分100）</text> -->
+    <!-- 运势标签 chip -->
+    <view class="result-tags" wx:if="{{resultTags.length > 0}}">
+      <text class="result-tag" wx:for="{{resultTags}}" wx:key="*this" style="color: {{theme.secondary}}; border-color: {{theme.secondary}};">{{item}}</text>
+    </view>
     <text class="result-keywords" style="color: {{theme.textSecondary}};">{{resultKeywords}}</text>
-    <!-- <text class="result-score">得分：{{score}} 分</text> -->
+    <text class="result-percentile" style="color: {{theme.textSecondary}};">超过 {{resultPercentile}}% 的用户，今年运势不如你</text>
     <!-- 卡片四角金元宝/铜钱点缀（CSS 小圆点模拟） -->
     <view class="card-corner card-tl"></view>
     <view class="card-corner card-tr"></view>
@@ -46,20 +49,44 @@
     <text class="ad-hint">替换方式：在 result.js 中调用 wx.createInterstitialAd({ adUnitId: '...' })</text>
   </view>
 
-  <!-- 按钮区：仅保留「重新测试」；分享/保存运势图已注释，恢复时取消下方注释即可 -->
+  <!-- 按钮区：分享给朋友、生成海报、重新测试 -->
   <view class="actions">
-    <!-- 分享按钮-暂注释：恢复时取消下一行注释 -->
-    <!-- <button class="btn-primary btn-glow btn-share" open-type="share">马到成功 · 分享给好友</button> -->
-    <!-- 保存图片按钮-暂注释：恢复时取消下一行注释 -->
-    <!-- <button class="btn-primary btn-glow btn-save" bindtap="onSaveImage">保存运势图</button> -->
+    <view class="actions-row">
+      <button class="btn-action" open-type="share">分享给朋友</button>
+      <button class="btn-action" bindtap="onSaveImage">生成我的运势海报</button>
+    </view>
     <button class="btn-retest" bindtap="onRetest">重新测试</button>
   </view>
 
-  <!-- 用于生成运势图的画布（屏外绘制，比例 3:4，导出后保存相册；二维码区域为占位，后续可替换为真实小程序码） -->
+  <!-- 生成中：金粉飘落动效 -->
+  <view class="poster-loading-mask" wx:if="{{generatingPoster}}" catchtap="">
+    <view class="poster-loading-gold-dust">
+      <view class="gold-dot g1"></view>
+      <view class="gold-dot g2"></view>
+      <view class="gold-dot g3"></view>
+      <view class="gold-dot g4"></view>
+      <view class="gold-dot g5"></view>
+      <view class="gold-dot g6"></view>
+      <view class="gold-dot g7"></view>
+      <view class="gold-dot g8"></view>
+    </view>
+    <text class="poster-loading-text">生成中…</text>
+  </view>
+
+  <!-- 海报预览：生成后先展示，用户确认再保存到相册 -->
+  <view class="poster-preview-mask" wx:if="{{showPosterPreview}}" catchtap="onClosePosterPreview">
+    <view class="poster-preview-box" catchtap="">
+      <image class="poster-preview-img" src="{{posterPreviewUrl}}" mode="widthFix" />
+      <view class="poster-preview-actions">
+        <button class="poster-btn poster-btn-save" bindtap="onSavePosterToAlbum">保存到相册</button>
+        <button class="poster-btn poster-btn-close" bindtap="onClosePosterPreview">关闭</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 用于生成运势图的画布（屏外绘制，必须设置 style 宽高与绘制尺寸一致 600*800） -->
   <canvas
     canvas-id="fortuneCanvas"
-    style="position: fixed; left: -9999px; top: 0;"
-    width="600"
-    height="800"
+    style="position: fixed; left: -9999px; top: 0; width: 600px; height: 800px;"
   ></canvas>
 </view>

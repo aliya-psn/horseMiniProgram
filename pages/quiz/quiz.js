@@ -107,36 +107,42 @@ Page({
     questions: QUESTIONS,
     currentIndex: 0,
     currentQuestion: null,
-    total: QUESTIONS.length
+    total: QUESTIONS.length,
+    selectedScore: null  // 当前题已选选项的分数，未选为 null；选后才可点「下一题」
   },
 
   onLoad(options) {
     const index = parseInt(options.index || '0', 10);
-    const currentQuestion = QUESTIONS[index];
+    const currentQuestion = QUESTIONS[Math.min(index, QUESTIONS.length - 1)];
     this.setData({
       currentIndex: index,
-      currentQuestion
+      currentQuestion,
+      selectedScore: null
     });
   },
 
   /**
-   * 选择选项：累加分数并跳下一题或结果页
+   * 选择选项：仅记录当前题选择并高亮，不跳转；需再点「下一题」才进入下一题
    */
   onSelectOption(e) {
     const { score } = e.currentTarget.dataset;
+    this.setData({ selectedScore: score });
+  },
+
+  /**
+   * 下一题：未选题不可点；选题后点击则加分并跳下一题或结果页
+   */
+  onNextQuestion() {
+    if (this.data.selectedScore == null) return;
     let totalScore = wx.getStorageSync('fortune_score') || 0;
-    totalScore += score;
+    totalScore += this.data.selectedScore;
     wx.setStorageSync('fortune_score', totalScore);
 
     const nextIndex = this.data.currentIndex + 1;
     if (nextIndex >= this.data.total) {
-      wx.redirectTo({
-        url: '/pages/result/result'
-      });
+      wx.redirectTo({ url: '/pages/result/result' });
       return;
     }
-    wx.redirectTo({
-      url: '/pages/quiz/quiz?index=' + nextIndex
-    });
+    wx.redirectTo({ url: '/pages/quiz/quiz?index=' + nextIndex });
   }
 });

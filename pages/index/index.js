@@ -1,6 +1,6 @@
 // 首页：引导页逻辑 + 我的测试记录（本地存储 wx.setStorageSync 最多 1 条）
 
-const RECORD_KEY = 'fortune_last_record'; // 与 result 页一致，存最近一次测试记录
+const RECORD_KEY = 'fortune_last_record_v2'; // 与 result 页一致
 
 Page({
   data: {
@@ -10,13 +10,13 @@ Page({
   },
 
   onShow() {
-    // 每次展示首页时读取本地测试记录，供「我的测试记录」模块展示
+    // 新版本在 app.onLaunch 已清空旧存储，此处只读当前记录用于展示「我的测试记录」
     const record = wx.getStorageSync(RECORD_KEY);
-    if (record && record.resultTitle) {
+    if (record && record.result) {
       this.setData({
         hasRecord: true,
         recordTime: record.time || '',
-        recordTitle: record.resultTitle || ''
+        recordTitle: record.result.type || ''
       });
     } else {
       this.setData({

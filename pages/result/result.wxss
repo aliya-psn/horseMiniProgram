@@ -4,8 +4,10 @@
 .page-result {
   min-height: 100vh;
   padding: 40rpx 40rpx 80rpx;
+  padding-bottom: calc(80rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(80rpx + env(safe-area-inset-bottom));
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* ---------- 背景：红金渐变 + 祥云 ---------- */
@@ -90,6 +92,31 @@
   font-weight: 700;
   color: #D4AF37;
   margin-bottom: 16rpx;
+}
+
+/* 运势标签 chip */
+.result-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.result-tag {
+  display: inline-block;
+  font-size: 22rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 24rpx;
+  border: 1rpx solid #D4AF37;
+  color: #D4AF37;
+}
+
+.result-percentile {
+  display: block;
+  font-size: 24rpx;
+  color: #888;
+  margin-bottom: 8rpx;
 }
 
 .result-keywords {
@@ -206,24 +233,56 @@
 .ad-interstitial-placeholder .ad-label { display: block; font-size: 24rpx; color: #999; margin-bottom: 6rpx; }
 .ad-interstitial-placeholder .ad-hint { font-size: 20rpx; color: #bbb; line-height: 1.35; }
 
-/* ---------- 按钮区：仅保留「重新测试」，红金渐变+发光+点击缩放/闪光，与结果卡片合理间距 ---------- */
+/* ---------- 按钮区：分享、生成海报、重新测试 ---------- */
 .actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin-top: 40rpx;
   position: relative;
   z-index: 1;
+  width: 100%;
+  max-width: 520rpx;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* 重新测试按钮：与红金马年主按钮完全一致（红金渐变+发光+点击动效） */
+.actions-row {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.actions-row .btn-action {
+  flex: 1;
+}
+
+/* 次要按钮：分享给朋友、生成海报 */
+.btn-action {
+  height: 84rpx;
+  line-height: 84rpx;
+  background: rgba(255, 255, 255, 0.98);
+  border: 2rpx solid rgba(212, 175, 55, 0.6);
+  border-radius: 24rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #C8102E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.btn-action:active {
+  opacity: 0.88;
+  background: rgba(255, 249, 240, 0.98);
+}
+
+/* 重新测试按钮：主 CTA，红金渐变+发光+点击动效 */
 .btn-retest {
   width: 100%;
-  max-width: 480rpx;
-  height: 92rpx;
-  line-height: 92rpx;
+  height: 96rpx;
+  line-height: 96rpx;
   background: linear-gradient(135deg, #C8102E 0%, #D4AF37 50%, #C8102E 100%);
-  border-radius: 32rpx;
+  border-radius: 28rpx;
   box-shadow: 0 8rpx 28rpx rgba(200, 16, 46, 0.35), 0 0 40rpx rgba(212, 175, 55, 0.2);
   font-size: 30rpx;
   font-weight: 700;
@@ -237,8 +296,156 @@
 }
 
 .btn-retest:active {
-  transform: scale(0.96);
+  transform: scale(0.98);
   box-shadow: 0 4rpx 16rpx rgba(200, 16, 46, 0.5), 0 0 56rpx rgba(212, 175, 55, 0.4);
+}
+
+/* ---------- 生成中：金粉飘落 ---------- */
+.poster-loading-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.poster-loading-gold-dust {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.gold-dot {
+  position: absolute;
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #FFD700, #D4AF37);
+  opacity: 0.9;
+  animation: gold-fall 2.5s ease-in-out infinite;
+}
+
+.g1 { left: 10%; top: -20rpx; animation-delay: 0s; }
+.g2 { left: 25%; top: -20rpx; animation-delay: 0.3s; }
+.g3 { left: 40%; top: -20rpx; animation-delay: 0.6s; }
+.g4 { left: 55%; top: -20rpx; animation-delay: 0.2s; }
+.g5 { left: 70%; top: -20rpx; animation-delay: 0.5s; }
+.g6 { left: 85%; top: -20rpx; animation-delay: 0.1s; }
+.g7 { left: 18%; top: -20rpx; animation-delay: 0.7s; }
+.g8 { left: 62%; top: -20rpx; animation-delay: 0.4s; }
+
+@keyframes gold-fall {
+  0% { transform: translateY(0) scale(1); opacity: 0.9; }
+  50% { transform: translateY(60vh) scale(0.8); opacity: 0.7; }
+  100% { transform: translateY(120vh) scale(0.6); opacity: 0; }
+}
+
+.poster-loading-text {
+  position: relative;
+  z-index: 1;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #FFD700;
+  text-shadow: 0 0 20rpx rgba(212, 175, 55, 0.6);
+}
+
+/* ---------- 海报预览层（入场动效） ---------- */
+.poster-preview-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+  box-sizing: border-box;
+  animation: mask-fade-in 0.25s ease-out;
+}
+
+.poster-preview-box {
+  background: #fff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 20rpx 56rpx rgba(0, 0, 0, 0.25), 0 0 0 1rpx rgba(212, 175, 55, 0.15);
+  animation: poster-pop-in 0.35s ease-out;
+}
+
+@keyframes mask-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes poster-pop-in {
+  from { opacity: 0; transform: scale(0.92) translateY(20rpx); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.poster-preview-img {
+  width: 100%;
+  display: block;
+  max-height: 70vh;
+}
+
+.poster-preview-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 24rpx 32rpx 32rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.poster-btn {
+  flex: 1;
+  height: 84rpx;
+  line-height: 84rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  border-radius: 24rpx;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.poster-btn-save {
+  background: linear-gradient(135deg, #C8102E 0%, #D4AF37 50%, #C8102E 100%);
+  color: #fff;
+  box-shadow: 0 8rpx 24rpx rgba(200, 16, 46, 0.35);
+}
+
+.poster-btn-save:active {
+  transform: scale(0.98);
+  opacity: 0.95;
+}
+
+.poster-btn-close {
+  background: rgba(255, 255, 255, 0.45);
+  color: #666;
+  border: 1rpx solid rgba(0, 0, 0, 0.08);
+}
+
+.poster-btn-close:active {
+  opacity: 0.8;
 }
 
 /* 分享按钮-暂注释：恢复时在 result.wxml 中取消对应 button 的注释即可，样式已保留 */

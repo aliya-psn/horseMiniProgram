@@ -14,19 +14,26 @@
   </view>
 
   <view class="question-card">
-    <!-- 题目：放大字号、深灰、行间距适中 -->
     <text class="question-title">{{currentQuestion.title}}</text>
     <view class="options">
       <view
-        class="option-item"
+        class="option-item {{selectedScore === item.score ? 'option-selected' : ''}}"
         wx:for="{{currentQuestion.options}}"
         wx:key="id"
         data-score="{{item.score}}"
         bindtap="onSelectOption"
       >
-        <!-- 选项卡片：米白底、金细边框，选中时红边+轻微放大 -->
         <text class="option-text">{{item.text}}</text>
       </view>
     </view>
+  </view>
+
+  <!-- 下一题：未选题时禁用，选题后可点 -->
+  <view class="quiz-actions">
+    <button
+      class="btn-next {{selectedScore != null ? 'btn-next-enabled' : ''}}"
+      disabled="{{selectedScore == null}}"
+      bindtap="onNextQuestion"
+    >{{currentIndex + 1 >= total ? '查看结果' : '下一题'}}</button>
   </view>
 </view>

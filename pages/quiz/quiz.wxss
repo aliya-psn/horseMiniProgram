@@ -104,14 +104,58 @@
 }
 
 .option-item:active {
-  transform: scale(1.05);
+  transform: scale(1.02);
   background: #FFF5E6;
+  border-color: rgba(200, 16, 46, 0.5);
+  box-shadow: 0 6rpx 24rpx rgba(0, 0, 0, 0.06);
+}
+
+/* 已选中的选项：红金边 + 浅红底，明确反馈 */
+.option-item.option-selected {
   border-color: #C8102E;
-  box-shadow: 0 8rpx 28rpx rgba(200, 16, 46, 0.15);
+  border-width: 2rpx;
+  background: rgba(200, 16, 46, 0.06);
+  box-shadow: 0 4rpx 20rpx rgba(200, 16, 46, 0.12);
 }
 
 .option-text {
   font-size: 30rpx;
   color: #333;
   line-height: 1.55;
+}
+
+/* ---------- 底部「下一题」按钮 ---------- */
+.quiz-actions {
+  position: relative;
+  z-index: 1;
+  margin-top: 48rpx;
+  padding-bottom: 40rpx;
+}
+
+.btn-next {
+  width: 100%;
+  height: 96rpx;
+  line-height: 96rpx;
+  border-radius: 28rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #fff;
+  background: #D5C4A8;
+  border: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-next[disabled] {
+  color: rgba(255, 255, 255, 0.85);
+  background: #D5C4A8;
+  opacity: 0.75;
+}
+
+.btn-next-enabled {
+  background: linear-gradient(135deg, #C8102E 0%, #D4AF37 50%, #C8102E 100%);
+  box-shadow: 0 8rpx 28rpx rgba(200, 16, 46, 0.3);
+}
+
+.btn-next-enabled:active {
+  transform: scale(0.98);
 }

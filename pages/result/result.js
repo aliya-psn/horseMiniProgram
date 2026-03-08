@@ -4,6 +4,8 @@ const RESULT_MAP = [
     max: 18,
     title: '安然清福型',
     keywords: '2026关键词：平安、恬淡、心安',
+    keywordsArr: ['平安', '恬淡', '心安'],
+    tags: ['平安是福', '心静自然凉', '小确幸', '稳稳当当'],
     sections: [
       { label: '事业/财运', icon: 'career', iconChar: '◆', content: '流年安稳，无波无澜，守住当下便是最好的财运。不求大起大落，只求稳稳当当。' },
       { label: '人际/贵人', icon: 'relation', iconChar: '●', content: '性情温和，人缘清净，家人和睦，知己相伴。虽无惊天贵人，却有长久温情。' },
@@ -16,6 +18,8 @@ const RESULT_MAP = [
     max: 24,
     title: '温润进阶型',
     keywords: '2026关键词：踏实、成长、小成',
+    keywordsArr: ['踏实', '成长', '小成'],
+    tags: ['稳步上升', '贵人渐现', '小财不断', '步步为营'],
     sections: [
       { label: '事业/财运', icon: 'career', iconChar: '◆', content: '稳步上升，付出就有回报。财运慢慢积累，小财不断，细水长流。' },
       { label: '人际/贵人', icon: 'relation', iconChar: '●', content: '待人真诚，贵人渐现。身边会出现愿意拉你一把的人，助你少走弯路。' },
@@ -28,6 +32,8 @@ const RESULT_MAP = [
     max: 30,
     title: '吉运盈门型',
     keywords: '2026关键词：顺心、旺运、小富',
+    keywordsArr: ['顺心', '旺运', '小富'],
+    tags: ['运势上扬', '贵人显形', '喜事常来', '机会之年'],
     sections: [
       { label: '事业/财运', icon: 'career', iconChar: '◆', content: '运势上扬，机会变多，容易遇到称心的项目与收入。正财稳健，偏财有喜。' },
       { label: '人际/贵人', icon: 'relation', iconChar: '●', content: '人缘旺盛，贵人显形。长辈、朋友、同事都愿意帮你，遇事有人扶。' },
@@ -40,6 +46,8 @@ const RESULT_MAP = [
     max: 34,
     title: '鸿运当头型',
     keywords: '2026关键词：红火、顺遂、显贵',
+    keywordsArr: ['红火', '顺遂', '显贵'],
+    tags: ['事业突破', '财运旺盛', '贵人铺路', '心想事成'],
     sections: [
       { label: '事业/财运', icon: 'career', iconChar: '◆', content: '运势大开，事业有突破，容易被看见、被认可。财运旺盛，正财偏财双丰收。' },
       { label: '人际/贵人', icon: 'relation', iconChar: '●', content: '气场吸贵，走到哪都受欢迎。易遇人生贵人，为你铺路搭桥。' },
@@ -52,6 +60,8 @@ const RESULT_MAP = [
     max: 37,
     title: '天赐贵气型',
     keywords: '2026关键词：显贵、乘风、大成',
+    keywordsArr: ['显贵', '乘风', '大成'],
+    tags: ['贵人运爆棚', '事业开挂', '财运上涨', '机会之年'],
     sections: [
       { label: '事业/财运', icon: 'career', iconChar: '◆', content: '命带吉星，事业易有跨越式发展，容易出圈、成名、得利。财气自来。' },
       { label: '人际/贵人', icon: 'relation', iconChar: '●', content: '贵人强势出现，可能是改变你命运的人。人脉即是财脉，处处有人帮。' },
@@ -64,6 +74,8 @@ const RESULT_MAP = [
     max: 40,
     title: '巅峰旺运型',
     keywords: '2026关键词：天选、旺运、大成',
+    keywordsArr: ['天选', '旺运', '大成'],
+    tags: ['势不可挡', '贵人如云', '名利双收', '万事尽在掌握'],
     sections: [
       { label: '事业/财运', icon: 'career', iconChar: '◆', content: '势不可挡，一顺百顺。事业名利双收，财运亨通，所求皆得。' },
       { label: '人际/贵人', icon: 'relation', iconChar: '●', content: '众星捧月，贵人如云。逢凶化吉，遇难成祥，走到哪里都是福运中心。' },
@@ -73,7 +85,7 @@ const RESULT_MAP = [
   }
 ];
 
-const RECORD_KEY = 'fortune_last_record'; // 本地存储：最近一次测试记录，最多 1 条
+const RECORD_KEY = 'fortune_last_record_v2'; // 本地存储：最近一次测试记录；改 key 即弃用旧数据
 const CANVAS_W = 600;
 const CANVAS_H = 800;  // 比例 3:4，适配朋友圈
 
@@ -142,6 +154,25 @@ function getResult(score) {
   return RESULT_MAP[0];
 }
 
+/** 随机 80~95 的百分比，用于「超过 xx% 用户」 */
+function randomPercentile() {
+  return 80 + Math.floor(Math.random() * 16);
+}
+
+/** 根据 result 生成分享文案 */
+function getShareCopy(type) {
+  const copyMap = {
+    '安然清福型': '2026年平安恬淡，心安即是福！',
+    '温润进阶型': '2026年踏实成长，小成在望！',
+    '吉运盈门型': '2026年顺心旺运，喜事常来！',
+    '鸿运当头型': '2026年红火顺遂，贵人铺路！',
+    '天赐贵气型': '2026年贵人相助，事业腾飞！',
+    '巅峰旺运型': '2026年势不可挡，万事尽在掌握！'
+  };
+  const line = copyMap[type] || '2026年好运连连！';
+  return `我测出了「${type}」运势！${line}快来测测你的运势！`;
+}
+
 
 /**
  * 格式化日期为 2026-XX-XX
@@ -160,68 +191,143 @@ Page({
     score100: 0,
     resultTitle: '',
     resultKeywords: '',
+    resultKeywordsArr: [],
+    resultTags: [],
+    resultPercentile: 88,
     resultSections: [],
-    // 默认主题，防止首帧为空
-    theme: THEME_MAP['安然清福型']
+    theme: THEME_MAP['安然清福型'],
+    showPosterPreview: false,
+    posterPreviewUrl: '',
+    generatingPoster: false
   },
 
   onLoad(options) {
     const fromRecord = options.fromRecord === '1';
     let score = Number(wx.getStorageSync('fortune_score') || 10);
+    let resultRow;
     let result;
 
     if (fromRecord) {
       const record = wx.getStorageSync(RECORD_KEY);
-      if (record && record.resultTitle) {
-        const score100 = record.score100 != null ? record.score100 : toScore100(record.score);
-        this.setData({
-          score: record.score,
-          score100,
-          resultTitle: record.resultTitle,
-          resultKeywords: record.resultKeywords || '',
-          resultSections: record.resultSections || [],
-          theme: getThemeByTitle(record.resultTitle)
-        });
+      if (record && (record.result || record.resultTitle)) {
+        if (record.result) {
+          result = record.result;
+          const percentile = result.percentile != null ? result.percentile : randomPercentile();
+          this.setData({
+            score: result.score,
+            score100: result.score100,
+            resultTitle: result.type,
+            resultKeywords: (result.keywords || []).join(' · '),
+            resultKeywordsArr: result.keywords || [],
+            resultTags: result.tags || [],
+            resultPercentile: percentile,
+            resultSections: record.resultSections || [],
+            theme: getThemeByTitle(result.type)
+          });
+        } else {
+          const score100 = record.score100 != null ? record.score100 : toScore100(record.score);
+          const kwStr = record.resultKeywords || '';
+          const keywordsArr = kwStr ? kwStr.replace(/^2026关键词[：:]\s*/, '').split(/[、·]/).map(s => s.trim()).filter(Boolean) : [];
+          const resultRow = getResult(record.score);
+          const tags = resultRow.tags || [];
+          this.setData({
+            score: record.score,
+            score100,
+            resultTitle: record.resultTitle,
+            resultKeywords: keywordsArr.length ? keywordsArr.join(' · ') : kwStr,
+            resultKeywordsArr: keywordsArr.length ? keywordsArr : [kwStr],
+            resultTags: tags,
+            resultPercentile: randomPercentile(),
+            resultSections: record.resultSections || [],
+            theme: getThemeByTitle(record.resultTitle)
+          });
+        }
         return;
       }
     }
 
-    result = getResult(score);
+    resultRow = getResult(score);
     const score100 = toScore100(score);
+    const keywordsArr = resultRow.keywordsArr || [];
+    const tags = resultRow.tags || [];
+    result = {
+      type: resultRow.title,
+      score,
+      score100,
+      keywords: keywordsArr,
+      tags,
+      percentile: randomPercentile()
+    };
+
     this.setData({
       score,
       score100,
-      resultTitle: result.title,
-      resultKeywords: result.keywords,
-      resultSections: result.sections || [],
-      theme: getThemeByTitle(result.title)
+      resultTitle: result.type,
+      resultKeywords: keywordsArr.join(' · '),
+      resultKeywordsArr: keywordsArr,
+      resultTags: tags,
+      resultPercentile: result.percentile,
+      resultSections: resultRow.sections || [],
+      theme: getThemeByTitle(result.type)
     });
 
     wx.setStorageSync(RECORD_KEY, {
       time: formatDate(),
-      score,
-      score100,
-      resultTitle: result.title,
-      resultKeywords: result.keywords,
-      resultSections: result.sections || []
+      result,
+      resultSections: resultRow.sections || []
     });
   },
 
-  // onShareAppMessage() {
-  //   return {
-  //     title: '我测了2026运势，也太准了！你也来试试～',
-  //     path: '/pages/index/index',
-  //     imageUrl: ''
-  //   };
-  // },
+  onShareAppMessage() {
+    const title = getShareCopy(this.data.resultTitle);
+    return {
+      title,
+      path: '/pages/index/index'
+    };
+  },
 
-  // onShareTimeline() {
-  //   return {
-  //     title: '我测了2026运势，也太准了！你也来试试～',
-  //     query: '',
-  //     imageUrl: ''
-  //   };
-  // },
+  onShareTimeline() {
+    const title = getShareCopy(this.data.resultTitle);
+    return { title, query: '' };
+  },
+
+  /** 生成运势海报：显示金粉加载动效，再绘制 canvas，生成后展示预览 */
+  onSaveImage() {
+    this.setData({ generatingPoster: true });
+    this.drawAndSave();
+  },
+
+  /** 关闭海报预览 */
+  onClosePosterPreview() {
+    this.setData({ showPosterPreview: false, posterPreviewUrl: '' });
+  },
+
+  /** 在预览中点击「保存到相册」：需相册权限，首次会弹系统授权；拒绝则引导去设置 */
+  onSavePosterToAlbum() {
+    const url = this.data.posterPreviewUrl;
+    if (!url) return;
+    wx.saveImageToPhotosAlbum({
+      filePath: url,
+      success: () => {
+        wx.showToast({ title: '已保存到相册', icon: 'success' });
+        this.setData({ showPosterPreview: false, posterPreviewUrl: '' });
+      },
+      fail: (err) => {
+        if (err.errMsg && err.errMsg.indexOf('auth') !== -1) {
+          wx.showModal({
+            title: '需要相册权限',
+            content: '保存图片到相册需要您授权。请到设置中开启「保存到相册」权限。',
+            confirmText: '去设置',
+            success(s) {
+              if (s.confirm) wx.openSetting();
+            }
+          });
+        } else {
+          wx.showToast({ title: '保存失败', icon: 'none' });
+        }
+      }
+    });
+  },
 
   onRetest() {
     wx.setStorageSync('fortune_score', 0);
@@ -231,166 +337,162 @@ Page({
   },
 
   /**
-   * 保存运势图：canvas 绘制 → 生成临时文件 → 保存到相册
-   * 使用 wx.canvasToTempFilePath、wx.saveImageToPhotosAlbum；未授权时引导用户开启相册权限
-   */
-  // onSaveImage() {
-  //   const that = this;
-  //   wx.getSetting({
-  //     success(res) {
-  //       if (res.authSetting['scope.writePhotosAlbum']) {
-  //         that.drawAndSave();
-  //       } else {
-  //         wx.authorize({
-  //           scope: 'scope.writePhotosAlbum',
-  //           success() { that.drawAndSave(); },
-  //           fail() {
-  //             wx.showModal({
-  //               title: '保存图片需要相册权限',
-  //               content: '请在设置中允许保存图片到相册，以便保存运势图。',
-  //               confirmText: '去设置',
-  //               success(s) {
-  //                 if (s.confirm) wx.openSetting();
-  //               }
-  //             });
-  //           }
-  //         });
-  //       }
-  //     }
-  //   });
-  // },
-
-  /**
-   * 在 canvas 上绘制运势图（红金渐变背景+祥云+结果+二维码占位），再导出并保存到相册
+   * 绘制分享海报：重设计布局，留白充足、层次清晰、适合保存到手机
+   * 画布 600*800。结构：顶栏 → 运势卡片（居中）→ 扫码文案（居中）→ 二维码（居中）→ 免责
    */
   drawAndSave() {
-    wx.showLoading({ title: '生成中…' });
-    const { score, resultTitle, resultKeywords, resultSections } = this.data;
-    const ctx = wx.createCanvasContext('fortuneCanvas', this);
+    const that = this;
+    const resultTitle = this.data.resultTitle || '';
+    const resultKeywords = this.data.resultKeywords || '';
+    const resultKeywordsArr = this.data.resultKeywordsArr || [];
+    const resultSections = this.data.resultSections || [];
+    const keywordsStr = resultKeywords || resultKeywordsArr.join(' · ');
+    const w = CANVAS_W;
+    const h = CANVAS_H;
 
-    // 1) 背景：红金线性渐变（顶部 #FFF5E6 → 底部 #FFE8CC）
-    const bg = ctx.createLinearGradient(0, 0, 0, CANVAS_H);
-    bg.addColorStop(0, '#FFF5E6');
-    bg.addColorStop(1, '#FFE8CC');
-    ctx.setFillStyle(bg);
-    ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+    const drawPoster = (qrImagePath) => {
+      const ctx = wx.createCanvasContext('fortuneCanvas', that);
 
-    // 2) 祥云：半透明金色圆
-    ctx.setFillStyle('rgba(212, 175, 55, 0.12)');
-    ctx.beginPath();
-    ctx.arc(100, 120, 80, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(500, 350, 70, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(120, 550, 60, 0, Math.PI * 2);
-    ctx.fill();
+      // ---------- 1. 背景：柔和米金渐变，不抢眼 ----------
+      const bg = ctx.createLinearGradient(0, 0, 0, h);
+      bg.addColorStop(0, '#FDF8F2');
+      bg.addColorStop(0.5, '#F8F0E4');
+      bg.addColorStop(1, '#F2E8DC');
+      ctx.setFillStyle(bg);
+      ctx.fillRect(0, 0, w, h);
 
-    // 3) 顶部：“马到好运”艺术字 + 马年氛围
-    ctx.setFillStyle('#D4AF37');
-    ctx.setFontSize(38);
-    ctx.setTextAlign('center');
-    ctx.fillText('马到好运', CANVAS_W / 2, 72);
-    ctx.setFontSize(28);
-    ctx.fillText('马', CANVAS_W / 2, 115);
+      // ---------- 2. 顶栏：加高一点，金渐变，一行标题 ----------
+      const barH = 68;
+      const barGrad = ctx.createLinearGradient(0, 0, 0, barH);
+      barGrad.addColorStop(0, '#B8860B');
+      barGrad.addColorStop(0.5, '#D4AF37');
+      barGrad.addColorStop(1, '#A67C00');
+      ctx.setFillStyle(barGrad);
+      ctx.fillRect(0, 0, w, barH);
+      ctx.setFillStyle('#FFFEF9');
+      ctx.setFontSize(21);
+      ctx.setTextAlign('center');
+      ctx.fillText('马到成功 · 2026运势测试', w / 2, barH / 2 + 7);
 
-    // 4) 中部：白色卡片 + 运势结果（红金字体）
-    const cardX = 40;
-    const cardW = CANVAS_W - 80;
-    ctx.setFillStyle('#FFFFFF');
-    ctx.setStrokeStyle('#D4AF37');
-    ctx.setLineWidth(2);
-    ctx.beginPath();
-    ctx.rect(cardX, 140, cardW, 320);
-    ctx.fill();
-    ctx.stroke();
+      // ---------- 3. 运势卡片（类型 + 关键词）----------
+      const cardPad = 40;
+      const cardX = cardPad;
+      const cardY = 84;
+      const cardW = w - cardPad * 2;
+      const cardH = 188;
+      ctx.setFillStyle('rgba(0,0,0,0.04)');
+      ctx.fillRect(cardX + 4, cardY + 4, cardW, cardH);
+      ctx.setFillStyle('#FFFFFF');
+      ctx.setStrokeStyle('#D4AF37');
+      ctx.setLineWidth(2);
+      ctx.strokeRect(cardX, cardY, cardW, cardH);
+      ctx.fillRect(cardX, cardY, cardW, cardH);
 
-    ctx.setFillStyle('#C8102E');
-    ctx.setFontSize(28);
-    ctx.setTextAlign('center');
-    ctx.fillText('你的2026运势', CANVAS_W / 2, 175);
-    ctx.setFontSize(32);
-    ctx.fillText(resultTitle, CANVAS_W / 2, 218);
-    ctx.setFillStyle('#555');
-    ctx.setFontSize(22);
-    ctx.fillText(resultKeywords, CANVAS_W / 2, 255);
-    ctx.setFillStyle('#999');
-    ctx.setFontSize(20);
-    ctx.fillText('得分：' + score + ' 分', CANVAS_W / 2, 285);
-    // 简要解读：只画前两条维度
-    if (resultSections && resultSections.length > 0) {
-      ctx.setFillStyle('#333');
-      ctx.setFontSize(18);
-      ctx.setTextAlign('left');
-      let y = 320;
-      for (let i = 0; i < Math.min(2, resultSections.length); i++) {
-        const s = resultSections[i];
-        ctx.fillText(s.label + '：' + (s.content || '').slice(0, 18) + '…', cardX + 20, y);
-        y += 28;
+      ctx.setTextAlign('center');
+      ctx.setFillStyle('#A67C00');
+      ctx.setFontSize(16);
+      ctx.fillText('我的 2026 运势', w / 2, cardY + 48);
+      ctx.setFillStyle('#C8102E');
+      ctx.setFontSize(34);
+      ctx.fillText(resultTitle || '吉运盈门型', w / 2, cardY + 86);
+      ctx.setStrokeStyle('rgba(212, 175, 55, 0.35)');
+      ctx.setLineWidth(1);
+      ctx.beginPath();
+      ctx.moveTo(cardX + 48, cardY + 106);
+      ctx.lineTo(cardX + cardW - 48, cardY + 106);
+      ctx.stroke();
+      ctx.setFillStyle('#8C8C8C');
+      ctx.setFontSize(15);
+      ctx.fillText('关键词', w / 2, cardY + 126);
+      ctx.setFillStyle('#333333');
+      ctx.setFontSize(20);
+      const maxLen = 14;
+      if (keywordsStr.length <= maxLen) {
+        ctx.fillText(keywordsStr, w / 2, cardY + 158);
+      } else {
+        ctx.fillText(keywordsStr.slice(0, maxLen), w / 2, cardY + 150);
+        ctx.fillText(keywordsStr.slice(maxLen).trim(), w / 2, cardY + 176);
       }
-    }
 
-    // 5) 底部右侧：小程序二维码占位（200x200px），左侧引导语
-    ctx.setTextAlign('left');
-    ctx.setFillStyle('#C8102E');
-    ctx.setFontSize(24);
-    ctx.fillText('扫码测你的2026运势', 50, 530);
-    ctx.setFontSize(18);
-    ctx.setFillStyle('#666');
-    ctx.fillText('长按识别图中小程序码', 50, 558);
+      // ---------- 4. 详细解读（四维度）----------
+      const detailY = cardY + cardH + 16;
+      const detailLeft = cardX + 24;
+      const lineH = 34;
+      ctx.setTextAlign('left');
+      ctx.setFillStyle('#A67C00');
+      ctx.setFontSize(14);
+      ctx.fillText('详细解读', detailLeft, detailY - 2);
+      const sections = resultSections.slice(0, 4);
+      sections.forEach((item, i) => {
+        const y = detailY + 16 + i * lineH;
+        ctx.setFillStyle('#C8102E');
+        ctx.setFontSize(13);
+        ctx.fillText(item.label + '：', detailLeft, y);
+        const content = (item.content || '').slice(0, 18);
+        ctx.setFillStyle('#444');
+        ctx.setFontSize(12);
+        ctx.fillText(content + (item.content && item.content.length > 18 ? '…' : ''), detailLeft + 68, y);
+      });
 
-    // 二维码区域：占位 200x200px，右下角。替换为真实小程序码方法见下：
-    // 1) 服务端生成带参小程序码（wxacode.getUnlimited 或 get），得到图片 URL 或 buffer；
-    // 2) 本处用 ctx.drawImage(image, qrX, qrY, 200, 200) 绘制，image 需先 wx.getImageInfo 或 createImage 后 drawImage；
-    // 3) 或先下载到临时路径，再 ctx.drawImage(tempPath, qrX, qrY, 200, 200)。注意 drawImage 为异步，需在 draw 前完成。
-    const qrX = CANVAS_W - 200 - 40;
-    const qrY = 500;
-    ctx.setStrokeStyle('#D4AF37');
-    ctx.setLineWidth(2);
-    ctx.strokeRect(qrX, qrY, 200, 200);
-    ctx.setFillStyle('#f5f5f5');
-    ctx.fillRect(qrX + 2, qrY + 2, 196, 196);
-    ctx.setFillStyle('#999');
-    ctx.setFontSize(16);
-    ctx.setTextAlign('center');
-    ctx.fillText('替换为小程序二维码', qrX + 100, qrY + 100);
+      // ---------- 5. 扫码文案 ----------
+      const detailBlockH = sections.length ? 16 + sections.length * lineH + 10 : 0;
+      const ctaY = detailY + detailBlockH + 22;
+      ctx.setFillStyle('#C8102E');
+      ctx.setFontSize(26);
+      ctx.fillText('扫码测你的 2026 运势', w / 2, ctaY);
+      ctx.setFillStyle('#666666');
+      ctx.setFontSize(17);
+      ctx.fillText('看看今年能不能顺风顺水发小财', w / 2, ctaY + 24);
 
-    // 6) 底部标注
-    ctx.setFillStyle('#999');
-    ctx.setFontSize(20);
-    ctx.fillText('本测试仅供娱乐，好运靠自己～', CANVAS_W / 2, 750);
+      // ---------- 6. 二维码：缩小，不影响长按识别 ----------
+      const qrSize = 160;
+      const qrX = (w - qrSize) / 2;
+      const qrY = ctaY + 40;
+      ctx.setFillStyle('#FFFFFF');
+      ctx.setStrokeStyle('#D4AF37');
+      ctx.setLineWidth(2);
+      ctx.strokeRect(qrX, qrY, qrSize, qrSize);
+      ctx.fillRect(qrX, qrY, qrSize, qrSize);
+      if (qrImagePath) {
+        ctx.drawImage(qrImagePath, qrX + 5, qrY + 5, qrSize - 10, qrSize - 10);
+      } else {
+        ctx.setFillStyle('#F5F5F5');
+        ctx.fillRect(qrX + 4, qrY + 4, qrSize - 8, qrSize - 8);
+        ctx.setFillStyle('#999');
+        ctx.setFontSize(13);
+        ctx.fillText('小程序码', w / 2, qrY + qrSize / 2 - 4);
+        ctx.fillText('占位', w / 2, qrY + qrSize / 2 + 10);
+      }
+      ctx.setFillStyle('#C8102E');
+      ctx.setFontSize(16);
+      ctx.fillText('长按识别', w / 2, qrY + qrSize + 20);
 
-    ctx.draw(false, () => {
-      wx.hideLoading();
-      wx.canvasToTempFilePath({
-        canvasId: 'fortuneCanvas',
-        destWidth: CANVAS_W,
-        destHeight: CANVAS_H,
-        success(res) {
-          wx.saveImageToPhotosAlbum({
-            filePath: res.tempFilePath,
-            success() {
-              wx.showToast({ title: '保存成功，快去朋友圈分享吧～', icon: 'none', duration: 2500 });
+      // ---------- 7. 小提示 + 免责 ----------
+      ctx.setFillStyle('#A67C00');
+      ctx.setFontSize(14);
+      ctx.fillText('已有 1 万+ 人测出吉运', w / 2, qrY + qrSize + 42);
+      ctx.setFillStyle('#999999');
+      ctx.setFontSize(13);
+      ctx.fillText('本测试仅供娱乐，好运靠自己～', w / 2, qrY + qrSize + 62);
+
+      ctx.draw(false, () => {
+        setTimeout(() => {
+          wx.canvasToTempFilePath({
+            canvasId: 'fortuneCanvas',
+            destWidth: CANVAS_W,
+            destHeight: CANVAS_H,
+            success: (res) => {
+              that.setData({ showPosterPreview: true, posterPreviewUrl: res.tempFilePath, generatingPoster: false });
             },
-            fail(err) {
-              if (err.errMsg && err.errMsg.indexOf('auth') !== -1) {
-                wx.showModal({
-                  title: '需要相册权限',
-                  content: '请到设置中允许保存图片到相册。',
-                  confirmText: '去设置',
-                  success(s) { if (s.confirm) wx.openSetting(); }
-                });
-              } else {
-                wx.showToast({ title: '保存失败', icon: 'none' });
-              }
+            fail: () => {
+              that.setData({ generatingPoster: false });
+              wx.showToast({ title: '生成图片失败', icon: 'none' });
             }
-          });
-        },
-        fail() {
-          wx.showToast({ title: '生成图片失败', icon: 'none' });
-        }
-      }, this);
-    });
+          }, that);
+        }, 150);
+      });
+    };
+
+    drawPoster('qrcode.jpg');
   }
 });
