@@ -342,157 +342,131 @@ Page({
    */
   drawAndSave() {
     const that = this;
-    const resultTitle = this.data.resultTitle || '';
-    const resultKeywords = this.data.resultKeywords || '';
+    const resultTitle = this.data.resultTitle || '吉运盈门型';
     const resultKeywordsArr = this.data.resultKeywordsArr || [];
     const resultSections = this.data.resultSections || [];
-    const keywordsStr = resultKeywords || resultKeywordsArr.join(' · ');
-    const w = CANVAS_W;
-    const h = CANVAS_H;
-
+  
+    const w = 600;
+    const h = 800;
+  
     const drawPoster = (qrImagePath) => {
       const ctx = wx.createCanvasContext('fortuneCanvas', that);
-
-      // ---------- 1. 背景：柔和米金渐变，不抢眼 ----------
+  
+      // ---------- 背景 ----------
       const bg = ctx.createLinearGradient(0, 0, 0, h);
-      bg.addColorStop(0, '#FDF8F2');
-      bg.addColorStop(0.5, '#F8F0E4');
-      bg.addColorStop(1, '#F2E8DC');
+      bg.addColorStop(0, '#FFF8F0'); 
+      bg.addColorStop(1, '#FDF5EE');
       ctx.setFillStyle(bg);
       ctx.fillRect(0, 0, w, h);
-
-      // ---------- 2. 顶栏：加高一点，金渐变，一行标题 ----------
-      const barH = 68;
-      const barGrad = ctx.createLinearGradient(0, 0, 0, barH);
-      barGrad.addColorStop(0, '#B8860B');
-      barGrad.addColorStop(0.5, '#D4AF37');
-      barGrad.addColorStop(1, '#A67C00');
-      ctx.setFillStyle(barGrad);
-      ctx.fillRect(0, 0, w, barH);
-      ctx.setFillStyle('#FFFEF9');
-      ctx.setFontSize(21);
-      ctx.setTextAlign('center');
-      ctx.fillText('马到成功 · 2026运势测试', w / 2, barH / 2 + 7);
-
-      // ---------- 3. 运势卡片（类型 + 关键词）----------
-      const cardPad = 40;
-      const cardX = cardPad;
-      const cardY = 84;
-      const cardW = w - cardPad * 2;
-      const cardH = 188;
-      ctx.setFillStyle('rgba(0,0,0,0.04)');
-      ctx.fillRect(cardX + 4, cardY + 4, cardW, cardH);
-      ctx.setFillStyle('#FFFFFF');
-      ctx.setStrokeStyle('#D4AF37');
-      ctx.setLineWidth(2);
-      ctx.strokeRect(cardX, cardY, cardW, cardH);
-      ctx.fillRect(cardX, cardY, cardW, cardH);
-
-      ctx.setTextAlign('center');
-      ctx.setFillStyle('#A67C00');
-      ctx.setFontSize(16);
-      ctx.fillText('我的 2026 运势', w / 2, cardY + 48);
+  
+      // ---------- 顶部标题 ----------
       ctx.setFillStyle('#C8102E');
-      ctx.setFontSize(34);
-      ctx.fillText(resultTitle || '吉运盈门型', w / 2, cardY + 86);
-      ctx.setStrokeStyle('rgba(212, 175, 55, 0.35)');
-      ctx.setLineWidth(1);
-      ctx.beginPath();
-      ctx.moveTo(cardX + 48, cardY + 106);
-      ctx.lineTo(cardX + cardW - 48, cardY + 106);
-      ctx.stroke();
-      ctx.setFillStyle('#8C8C8C');
-      ctx.setFontSize(15);
-      ctx.fillText('关键词', w / 2, cardY + 126);
-      ctx.setFillStyle('#333333');
-      ctx.setFontSize(20);
-      const maxLen = 14;
-      if (keywordsStr.length <= maxLen) {
-        ctx.fillText(keywordsStr, w / 2, cardY + 158);
-      } else {
-        ctx.fillText(keywordsStr.slice(0, maxLen), w / 2, cardY + 150);
-        ctx.fillText(keywordsStr.slice(maxLen).trim(), w / 2, cardY + 176);
-      }
-
-      // ---------- 4. 详细解读（四维度）----------
-      const detailY = cardY + cardH + 16;
-      const detailLeft = cardX + 24;
-      const lineH = 34;
-      ctx.setTextAlign('left');
-      ctx.setFillStyle('#A67C00');
-      ctx.setFontSize(14);
-      ctx.fillText('详细解读', detailLeft, detailY - 2);
-      const sections = resultSections.slice(0, 4);
-      sections.forEach((item, i) => {
-        const y = detailY + 16 + i * lineH;
+      ctx.setFontSize(28);
+      ctx.setTextAlign('center');
+      ctx.fillText('马到成功 · 2026运势测试', w / 2, 50);
+  
+      // ---------- 运势标题 ----------
+      ctx.setFillStyle('#FFD700');
+      ctx.setFontSize(32);
+      ctx.fillText(resultTitle, w / 2, 120);
+  
+      // ---------- 关键词 ----------
+      const kwStartY = 160;
+      let kwX = 40;
+      let kwY = kwStartY;
+      const kwPadding = 14;
+      const kwLineHeight = 38;
+      ctx.setFontSize(18);
+      resultKeywordsArr.forEach((kw) => {
+        const textWidth = ctx.measureText(kw).width + kwPadding * 2;
+        if (kwX + textWidth > w - 40) {
+          kwX = 40;
+          kwY += kwLineHeight;
+        }
+        ctx.setFillStyle('#FFE4B5'); 
+        ctx.fillRect(kwX, kwY - 20, textWidth, 28);
         ctx.setFillStyle('#C8102E');
-        ctx.setFontSize(13);
-        ctx.fillText(item.label + '：', detailLeft, y);
-        const content = (item.content || '').slice(0, 18);
-        ctx.setFillStyle('#444');
-        ctx.setFontSize(12);
-        ctx.fillText(content + (item.content && item.content.length > 18 ? '…' : ''), detailLeft + 68, y);
+        ctx.fillText(kw, kwX + textWidth / 2, kwY);
+        kwX += textWidth + 10;
       });
-
-      // ---------- 5. 扫码文案 ----------
-      const detailBlockH = sections.length ? 16 + sections.length * lineH + 10 : 0;
-      const ctaY = detailY + detailBlockH + 22;
+  
+      // ---------- 四维度解读 ----------
+      const sectionStartY = kwY + 50;
+      ctx.setFontSize(16);
+      const sectionHeight = 40; 
+      const sectionSpacing = 12;
+      resultSections.slice(0, 4).forEach((s, i) => {
+        const secY = sectionStartY + i * (sectionHeight + sectionSpacing);
+        const contentText = (s.content || '').slice(0, 40); // 一行显示尽量完整
+        // 背景块
+        ctx.setFillStyle('#FFF4E6');
+        ctx.fillRect(40, secY - 22, w - 80, sectionHeight);
+        // 标签
+        ctx.setFillStyle('#C8102E');
+        ctx.setTextAlign('left');
+        ctx.fillText(s.label + '：', 50, secY);
+        // 内容
+        ctx.setFillStyle('#444444');
+        ctx.fillText(contentText + ((s.content || '').length > 40 ? '…' : ''), 160, secY);
+      });
+  
+      // ---------- 扫码区 ----------
+      const qrY = sectionStartY + 4 * (sectionHeight + sectionSpacing) + 40;
+      ctx.setTextAlign('center');
       ctx.setFillStyle('#C8102E');
-      ctx.setFontSize(26);
-      ctx.fillText('扫码测你的 2026 运势', w / 2, ctaY);
+      ctx.setFontSize(22);
+      ctx.fillText('扫码测你的 2026 运势', w / 2, qrY);
       ctx.setFillStyle('#666666');
-      ctx.setFontSize(17);
-      ctx.fillText('看看今年能不能顺风顺水发小财', w / 2, ctaY + 24);
-
-      // ---------- 6. 二维码：缩小，不影响长按识别 ----------
-      const qrSize = 160;
+      ctx.setFontSize(16);
+      ctx.fillText('看看今年能不能顺风顺水发小财', w / 2, qrY + 24);
+  
+      // ---------- 二维码 ----------
+      const qrSize = 180;
       const qrX = (w - qrSize) / 2;
-      const qrY = ctaY + 40;
+      const qrPosY = qrY + 50;
       ctx.setFillStyle('#FFFFFF');
+      ctx.fillRect(qrX, qrPosY, qrSize, qrSize);
       ctx.setStrokeStyle('#D4AF37');
-      ctx.setLineWidth(2);
-      ctx.strokeRect(qrX, qrY, qrSize, qrSize);
-      ctx.fillRect(qrX, qrY, qrSize, qrSize);
+      ctx.setLineWidth(3);
+      ctx.strokeRect(qrX, qrPosY, qrSize, qrSize);
       if (qrImagePath) {
-        ctx.drawImage(qrImagePath, qrX + 5, qrY + 5, qrSize - 10, qrSize - 10);
-      } else {
-        ctx.setFillStyle('#F5F5F5');
-        ctx.fillRect(qrX + 4, qrY + 4, qrSize - 8, qrSize - 8);
-        ctx.setFillStyle('#999');
-        ctx.setFontSize(13);
-        ctx.fillText('小程序码', w / 2, qrY + qrSize / 2 - 4);
-        ctx.fillText('占位', w / 2, qrY + qrSize / 2 + 10);
+        ctx.drawImage(qrImagePath, qrX + 8, qrPosY + 8, qrSize - 16, qrSize - 16);
       }
       ctx.setFillStyle('#C8102E');
-      ctx.setFontSize(16);
-      ctx.fillText('长按识别', w / 2, qrY + qrSize + 20);
-
-      // ---------- 7. 小提示 + 免责 ----------
+      ctx.setFontSize(18);
+      ctx.fillText('长按识别', w / 2, qrPosY + qrSize + 28);
+  
+      // ---------- 底部提示 ----------
       ctx.setFillStyle('#A67C00');
       ctx.setFontSize(14);
-      ctx.fillText('已有 1 万+ 人测出吉运', w / 2, qrY + qrSize + 42);
+      ctx.fillText('已有 1 万+ 人测出吉运', w / 2, qrPosY + qrSize + 50);
       ctx.setFillStyle('#999999');
-      ctx.setFontSize(13);
-      ctx.fillText('本测试仅供娱乐，好运靠自己～', w / 2, qrY + qrSize + 62);
-
+      ctx.setFontSize(12);
+      ctx.fillText('本测试仅供娱乐，好运靠自己～', w / 2, qrPosY + qrSize + 68);
+  
+      // ---------- 绘制完成 ----------
       ctx.draw(false, () => {
         setTimeout(() => {
           wx.canvasToTempFilePath({
             canvasId: 'fortuneCanvas',
-            destWidth: CANVAS_W,
-            destHeight: CANVAS_H,
+            destWidth: w,
+            destHeight: h,
             success: (res) => {
-              that.setData({ showPosterPreview: true, posterPreviewUrl: res.tempFilePath, generatingPoster: false });
+              that.setData({
+                showPosterPreview: true,
+                posterPreviewUrl: res.tempFilePath,
+                generatingPoster: false
+              });
             },
             fail: () => {
               that.setData({ generatingPoster: false });
               wx.showToast({ title: '生成图片失败', icon: 'none' });
             }
           }, that);
-        }, 150);
+        }, 100);
       });
     };
-
+  
     drawPoster('qrcode.jpg');
   }
 });
