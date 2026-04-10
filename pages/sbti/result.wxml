@@ -1,0 +1,50 @@
+<view class="sbti-res" wx:if="{{loaded}}">
+  <view class="page-index-bg sbti-res-page-bg">
+    <view class="cloud cloud-1"></view>
+    <view class="cloud cloud-2"></view>
+    <view class="cloud cloud-3"></view>
+  </view>
+  <view class="sbti-res-inner">
+    <view class="res-head">
+      <view class="res-head-left">
+        <text class="res-primary">{{primaryLine}}</text>
+        <text class="res-tagline" wx:if="{{primaryTagline}}">{{primaryTagline}}</text>
+      </view>
+      <view class="res-collapse" bindtap="toggleDetail">
+        <text>{{detailOpen ? '收起详情' : '展开详情'}}</text>
+        <text class="res-collapse-icon">{{detailOpen ? '▲' : '▼'}}</text>
+      </view>
+    </view>
+
+    <view class="tag-row" wx:if="{{detailOpen}}">
+      <view class="dim-tag {{item.grpClass}}" wx:for="{{tags}}" wx:key="dim">
+        <text class="dim-tag-t">{{item.line}}</text>
+        <text class="dim-tag-s">{{item.sum > 0 ? '+' : ''}}{{item.sum}}</text>
+      </view>
+    </view>
+
+    <view class="grid-wrap" wx:if="{{detailOpen}}">
+      <view class="grid">
+        <view
+          class="cell {{highlightTop && index === 0 ? 'cell-top' : ''}}"
+          wx:for="{{ranked}}"
+          wx:key="code"
+        >
+          <view class="cell-inner">
+            <text class="cell-code">{{item.displayCode}}</text>
+            <text class="cell-name">{{item.name}}</text>
+            <text class="cell-sim">{{item.similarity}}%</text>
+            <text class="cell-exact">{{item.exact}}/15 维</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <text class="res-foot" wx:if="{{footNote}}">{{footNote}}</text>
+
+    <view class="res-actions">
+      <button class="btn-retest" bindtap="onRetest">重新测试</button>
+      <button class="btn-share-res" open-type="share">分享给好友</button>
+    </view>
+  </view>
+</view>

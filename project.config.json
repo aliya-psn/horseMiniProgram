@@ -37,5 +37,6 @@
   },
   "appid": "wx9b54b9e291e2a9dc",
   "projectname": "horseMiniProgram",
-  "simulatorPluginLibVersion": {}
+  "simulatorPluginLibVersion": {},
+  "libVersion": "3.14.3"
 }

@@ -282,7 +282,7 @@ Page({
     const title = getShareCopy(this.data.resultTitle);
     return {
       title,
-      path: '/pages/index/index'
+      path: '/pages/home/home?p=fortune'
     };
   },
 

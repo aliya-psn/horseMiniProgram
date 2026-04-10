@@ -1,0 +1,107 @@
+@import '../index/index.wxss';
+
+.page-home {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  padding-bottom: calc(140rpx + env(safe-area-inset-bottom));
+}
+
+.home-tab-wrap {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 600rpx;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 24rpx 48rpx 16rpx;
+  box-sizing: border-box;
+}
+
+.home-tab-inner {
+  display: flex;
+  align-items: stretch;
+  background: rgba(255, 255, 255, 0.92);
+  border: 2rpx solid #E8D5B7;
+  border-radius: 999rpx;
+  padding: 8rpx;
+  box-shadow: 0 6rpx 20rpx rgba(212, 175, 55, 0.15);
+}
+
+.home-tab {
+  flex: 1;
+  text-align: center;
+  padding: 22rpx 12rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #8a7355;
+  border-radius: 999rpx;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.home-tab-on {
+  color: #fff;
+  background: linear-gradient(135deg, #C8102E 0%, #a00d24 55%, #b8942a 100%);
+  box-shadow: 0 4rpx 14rpx rgba(200, 16, 46, 0.28);
+}
+
+.home-body {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-main-inner.page-index-main {
+  height: auto !important;
+  min-height: 55vh;
+  padding-top: 20rpx;
+  padding-bottom: 40rpx;
+}
+
+.home-sbti-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 36rpx;
+}
+
+.home-sbti-mark {
+  font-size: 88rpx;
+  font-weight: 700;
+  color: #D4AF37;
+  letter-spacing: 4rpx;
+  transform: skewX(-4deg) rotate(-1deg);
+  text-shadow:
+    0 4rpx 8rpx rgba(212, 175, 55, 0.4),
+    0 2rpx 4rpx rgba(0, 0, 0, 0.06);
+}
+
+.home-sbti-title.title-main {
+  font-size: 52rpx;
+}
+
+.home-share-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  padding: 16rpx 48rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(255, 232, 204, 0) 0%, rgba(255, 232, 204, 0.92) 40%, #FFE8CC 100%);
+  box-sizing: border-box;
+}
+
+.home-share-fixed .btn-share {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  display: flex;
+  margin: 0 auto;
+  max-width: 600rpx;
+}

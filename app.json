@@ -1,13 +1,16 @@
 {
   "pages": [
+    "pages/home/home",
     "pages/index/index",
     "pages/quiz/quiz",
-    "pages/result/result"
+    "pages/result/result",
+    "pages/sbti/quiz",
+    "pages/sbti/result"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#C8102E",
-    "navigationBarTitleText": "2026马年运势测试",
+    "navigationBarTitleText": "马上好运来",
     "navigationBarTextStyle": "white"
   },
   "style": "v2",

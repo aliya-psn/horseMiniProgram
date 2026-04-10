@@ -376,3 +376,9 @@
 }
 
 .ad-label { font-size: 24rpx; color: #999; }
+
+/* 旧首页重定向占位页 */
+.page-index-redirect {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #FFF5E6 0%, #FFE8CC 100%);
+}

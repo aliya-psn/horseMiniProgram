@@ -1,0 +1,140 @@
+<view class="page-home">
+  <view class="page-index-bg">
+    <view class="cloud cloud-1"></view>
+    <view class="cloud cloud-2"></view>
+    <view class="cloud cloud-3"></view>
+  </view>
+
+  <view class="home-tab-wrap">
+    <view class="home-tab-inner">
+      <view
+        class="home-tab {{tab === 0 ? 'home-tab-on' : ''}}"
+        bindtap="onTabSbti"
+      >SBTI 人格</view>
+      <view
+        class="home-tab {{tab === 1 ? 'home-tab-on' : ''}}"
+        bindtap="onTabFortune"
+      >马上好运来</view>
+    </view>
+  </view>
+
+  <view class="home-body">
+    <!-- Tab0：SBTI -->
+    <view class="page-index-main home-main-inner" wx:if="{{tab === 0}}">
+      <view class="home-sbti-top">
+        <text class="home-sbti-mark">测</text>
+        <view class="ingots-row">
+          <view class="ingot"><view class="ingot-cap"></view></view>
+          <view class="ingot-line"></view>
+          <view class="ingot"><view class="ingot-cap"></view></view>
+        </view>
+        <view class="dots-three">
+          <view class="dot-gold"></view>
+          <view class="dot-gold"></view>
+          <view class="dot-gold"></view>
+        </view>
+      </view>
+
+      <view class="header">
+        <text class="title-main home-sbti-title">SBTI 人格评测</text>
+        <text class="title-sub">15 维 · 30 题 · 梗格对对碰</text>
+      </view>
+
+      <view class="guide-box">
+        <text class="guide-text">凭直觉作答，生成你的 15 维结果串并与 25 种人格比对相似度</text>
+        <view class="hoof-row">
+          <view class="hoof"></view>
+          <view class="hoof"></view>
+          <view class="hoof"></view>
+        </view>
+      </view>
+
+      <view class="btn-zone">
+        <button class="btn-main" bindtap="onStartSbti">开始 SBTI 测试</button>
+      </view>
+
+      <view class="record-card" wx:if="{{hasSbtiRecord}}" bindtap="onSbtiRecordTap">
+        <text class="record-title">我的 SBTI 记录</text>
+        <view class="record-row">
+          <text class="record-text">{{sbtiRecordTime}} · {{sbtiRecordTitle}}</text>
+          <text class="record-arrow">›</text>
+        </view>
+      </view>
+
+      <view class="local-disclaimer">
+        <text class="disclaimer-text">题目与结果均在本地计算</text>
+        <text class="disclaimer-text">不上传个人信息，仅供娱乐参考。</text>
+      </view>
+
+      <view class="dots-five">
+        <view class="dot-gold"></view>
+        <view class="dot-gold"></view>
+        <view class="dot-gold"></view>
+        <view class="dot-gold"></view>
+        <view class="dot-gold"></view>
+      </view>
+    </view>
+
+    <!-- Tab1：马年运势 -->
+    <view class="page-index-main home-main-inner" wx:if="{{tab === 1}}">
+      <view class="top-zone">
+        <text class="horse-word">马</text>
+        <view class="ingots-row">
+          <view class="ingot"><view class="ingot-cap"></view></view>
+          <view class="ingot-line"></view>
+          <view class="ingot"><view class="ingot-cap"></view></view>
+        </view>
+        <view class="dots-three">
+          <view class="dot-gold"></view>
+          <view class="dot-gold"></view>
+          <view class="dot-gold"></view>
+        </view>
+      </view>
+
+      <view class="header">
+        <text class="title-main">2026马年运势小测试</text>
+        <text class="title-sub">新一年，图个好彩头～</text>
+      </view>
+
+      <view class="guide-box">
+        <text class="guide-text">凭第一感觉选答案，测出你的2026专属运势</text>
+        <view class="hoof-row">
+          <view class="hoof"></view>
+          <view class="hoof"></view>
+          <view class="hoof"></view>
+        </view>
+      </view>
+
+      <view class="btn-zone">
+        <button class="btn-main" bindtap="onStartTest">马到成功·开始测试</button>
+      </view>
+
+      <view class="record-card" wx:if="{{hasRecord}}" bindtap="onRecordTap">
+        <text class="record-title">我的测试记录</text>
+        <view class="record-row">
+          <text class="record-text">{{recordTime}} 测试 | {{recordTitle}}</text>
+          <text class="record-arrow">›</text>
+        </view>
+      </view>
+
+      <view class="local-disclaimer">
+        <text class="disclaimer-text">本测试所有数据均在本地完成</text>
+        <text class="disclaimer-text">不会上传任何个人信息，放心体验。</text>
+      </view>
+
+      <view class="dots-five">
+        <view class="dot-gold"></view>
+        <view class="dot-gold"></view>
+        <view class="dot-gold"></view>
+        <view class="dot-gold"></view>
+        <view class="dot-gold"></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="home-share-fixed">
+    <button class="btn-share" open-type="share">
+      <text class="btn-share-text">分享给好友</text>
+    </button>
+  </view>
+</view>

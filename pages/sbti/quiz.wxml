@@ -1,0 +1,37 @@
+<view class="sbti-page" wx:if="{{question}}">
+  <view class="page-index-bg sbti-page-bg">
+    <view class="cloud cloud-1"></view>
+    <view class="cloud cloud-2"></view>
+    <view class="cloud cloud-3"></view>
+  </view>
+  <view class="sbti-inner">
+    <view class="q-meta">
+      <text class="q-num">第 {{currentIndex + 1}} 题</text>
+      <!-- <text class="q-dim">{{question.dimension}} {{question.dimensionLabel}}</text> -->
+    </view>
+    <view class="q-card">
+      <text class="q-title">{{question.title}}</text>
+      <view class="q-options">
+        <view
+          class="opt {{selectedKey === item.key ? 'opt-on' : ''}}"
+          wx:for="{{question.options}}"
+          wx:key="key"
+          data-key="{{item.key}}"
+          bindtap="onSelectOption"
+        >
+          <view class="opt-radio">
+            <view class="opt-dot" wx:if="{{selectedKey === item.key}}"></view>
+          </view>
+          <text class="opt-key">{{item.key}}.</text>
+          <text class="opt-text">{{item.text}}</text>
+          <!-- <view class="opt-pill {{item.pillClass}}">{{item.pillText}}</view> -->
+        </view>
+      </view>
+    </view>
+    <button
+      class="btn-next"
+      disabled="{{!selectedKey}}"
+      bindtap="onNext"
+    >{{currentIndex + 1 >= total ? '查看结果' : '下一题'}}</button>
+  </view>
+</view>

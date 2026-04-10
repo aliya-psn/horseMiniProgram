@@ -1,0 +1,255 @@
+@import '../index/index.wxss';
+
+page {
+  background: linear-gradient(180deg, #fff5e6 0%, #ffe8cc 100%);
+}
+
+.sbti-res {
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 48rpx;
+}
+
+.sbti-res-page-bg.page-index-bg {
+  z-index: 0;
+}
+
+.sbti-res-inner {
+  position: relative;
+  z-index: 1;
+  padding: 28rpx 24rpx;
+}
+
+.res-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16rpx;
+  background: linear-gradient(135deg, #fffbf7 0%, #fff8f0 100%);
+  border-radius: 20rpx;
+  padding: 28rpx 24rpx;
+  box-shadow: 0 8rpx 28rpx rgba(200, 16, 46, 0.08);
+  border: 2rpx solid #e8d5b7;
+  margin-bottom: 20rpx;
+}
+
+.res-head-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.res-primary {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #c8102e;
+  display: block;
+  line-height: 1.4;
+}
+
+.res-tagline {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  color: #5c4a32;
+  line-height: 1.45;
+}
+
+.res-collapse {
+  flex-shrink: 0;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #d4af37;
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.res-collapse-icon {
+  font-size: 22rpx;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.dim-tag {
+  padding: 10rpx 16rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  border: 1rpx solid rgba(232, 213, 183, 0.9);
+}
+
+.dim-tag-t {
+  opacity: 0.95;
+}
+
+.dim-tag-s {
+  font-size: 20rpx;
+  opacity: 0.85;
+  font-weight: 500;
+}
+
+.tag-grp-s {
+  background: rgba(212, 175, 55, 0.2);
+  color: #7a5f12;
+}
+
+.tag-grp-e {
+  background: rgba(200, 16, 46, 0.1);
+  color: #a00d24;
+}
+
+.tag-grp-a {
+  background: rgba(82, 160, 70, 0.12);
+  color: #2f6f2b;
+}
+
+.tag-grp-ac {
+  background: rgba(139, 115, 85, 0.12);
+  color: #5c4a32;
+}
+
+.tag-grp-so {
+  background: rgba(212, 175, 55, 0.12);
+  color: #8a6912;
+}
+
+.grid-wrap {
+  background: linear-gradient(135deg, #fffbf7 0%, #fff8f0 100%);
+  border-radius: 20rpx;
+  padding: 20rpx 16rpx 28rpx;
+  box-shadow: 0 8rpx 28rpx rgba(200, 16, 46, 0.06);
+  border: 2rpx solid #e8d5b7;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -6rpx;
+}
+
+.cell {
+  box-sizing: border-box;
+  width: 20%;
+  padding: 0 6rpx;
+  margin-bottom: 12rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cell-inner {
+  width: 100%;
+  padding: 16rpx 6rpx;
+  border-radius: 16rpx;
+  background: #fffefb;
+  border: 2rpx solid #e8d5b7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cell-top .cell-inner {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: #c8102e;
+  box-shadow: 0 0 0 2rpx rgba(200, 16, 46, 0.15);
+}
+
+.cell-code {
+  font-size: 22rpx;
+  font-weight: 700;
+  color: #c8102e;
+  line-height: 1.2;
+}
+
+.cell-name {
+  font-size: 20rpx;
+  color: #5c4a32;
+  margin-top: 6rpx;
+  line-height: 1.25;
+}
+
+.cell-sim {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #b8942a;
+  margin-top: 10rpx;
+}
+
+.cell-exact {
+  font-size: 20rpx;
+  color: #8a7355;
+  margin-top: 4rpx;
+}
+
+.res-foot {
+  display: block;
+  margin-top: 24rpx;
+  padding: 0 8rpx;
+  font-size: 24rpx;
+  color: #5c4a32;
+  line-height: 1.5;
+}
+
+.res-actions {
+  margin-top: 36rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.btn-retest,
+.btn-share-res {
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 44rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  border: none;
+}
+
+.btn-retest {
+  color: #fff;
+  background: linear-gradient(135deg, #c8102e 0%, #d4af37 100%);
+  box-shadow: 0 8rpx 28rpx rgba(200, 16, 46, 0.35);
+}
+
+.btn-share-res {
+  background: #fff;
+  color: #d4af37;
+  border: 2rpx solid #e8d5b7;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.btn-retest::after,
+.btn-share-res::after {
+  border: none;
+}
+
+.res-credit {
+  margin-top: 40rpx;
+  padding: 0 12rpx;
+}
+
+.credit-t {
+  font-size: 20rpx;
+  color: #a89880;
+  line-height: 1.5;
+}
+
+.credit-link {
+  display: block;
+  word-break: break-all;
+  margin: 8rpx 0;
+  font-size: 20rpx;
+  color: #c8102e;
+}
